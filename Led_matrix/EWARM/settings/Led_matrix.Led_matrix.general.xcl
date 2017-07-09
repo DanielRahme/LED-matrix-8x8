@@ -1,0 +1,15 @@
+"D:\Programs\IAR\arm\bin\armproc.dll" 
+
+"D:\Programs\IAR\arm\bin\armstlink2.dll" 
+
+"D:\Daniel\Programming\Embedded\Led_matrix\EWARM\Led_matrix\Exe\Led_matrix.out" 
+
+--plugin "D:\Programs\IAR\arm\bin\armbat.dll" 
+
+--device_macro "D:\Programs\IAR\arm\config\debugger\ST\STM32F3xx.dmac" 
+
+--flash_loader "D:\Programs\IAR\arm\config\flashloader\ST\FlashSTM32F3xxxC.board" 
+
+
+
+
