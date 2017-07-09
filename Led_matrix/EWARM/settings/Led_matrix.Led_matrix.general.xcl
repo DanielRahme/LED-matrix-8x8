@@ -2,7 +2,7 @@
 
 "D:\Programs\IAR\arm\bin\armstlink2.dll" 
 
-"D:\Daniel\Programming\Embedded\Led_matrix\EWARM\Led_matrix\Exe\Led_matrix.out" 
+"D:\Daniel\Programming\Embedded\LED-matrix-8x8\Led_matrix\EWARM\Led_matrix\Exe\Led_matrix.out" 
 
 --plugin "D:\Programs\IAR\arm\bin\armbat.dll" 
 

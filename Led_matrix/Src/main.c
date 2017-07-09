@@ -34,6 +34,7 @@
 #include "main.h"
 #include "stm32f3xx_hal.h"
 #include "gpio.h"
+#include "led.h"
 
 /* USER CODE BEGIN Includes */
 
@@ -56,54 +57,6 @@ void Error_Handler(void);
 /* USER CODE END PFP */
 
 /* USER CODE BEGIN 0 */
-
-
-void leds_off()
-{
-	HAL_GPIO_WritePin(GPIOA, Row0_Pin|Row1_Pin, GPIO_PIN_RESET);
-	HAL_GPIO_WritePin(GPIOD, col0_Pin|col1_Pin|col2_Pin|col3_Pin
-			  |col4_Pin|col5_Pin|col6_Pin|col7_Pin, GPIO_PIN_RESET);
-}
-
-void leds_on()
-{
-	HAL_GPIO_WritePin(GPIOA, Row0_Pin|Row1_Pin, 1);
-	HAL_GPIO_WritePin(GPIOD, col0_Pin|col1_Pin|col2_Pin|col3_Pin
-			  |col4_Pin|col5_Pin|col6_Pin|col7_Pin, 1);
-}
-
-void blink()
-{
-	leds_on();
-	HAL_Delay(400);
-	leds_off();
-	HAL_Delay(400);
-}
-
-void matrix()
-{
-	HAL_GPIO_WritePin(GPIOA, Row0_Pin, 1);
-	HAL_GPIO_WritePin(GPIOD, col0_Pin, 1);
-	HAL_Delay(200);
-	leds_off();
-
-	HAL_GPIO_WritePin(GPIOA, Row0_Pin, 1);
-	HAL_GPIO_WritePin(GPIOD, col1_Pin, 1);
-	HAL_Delay(200);
-	leds_off();
-
-	HAL_GPIO_WritePin(GPIOA, Row1_Pin, 1);
-	HAL_GPIO_WritePin(GPIOD, col0_Pin, 1);
-	HAL_Delay(200);
-	leds_off();
-
-	HAL_GPIO_WritePin(GPIOA, Row1_Pin, 1);
-	HAL_GPIO_WritePin(GPIOD, col1_Pin, 1);
-	HAL_Delay(200);
-	leds_off();
-
-}
-
 
 /* USER CODE END 0 */
 

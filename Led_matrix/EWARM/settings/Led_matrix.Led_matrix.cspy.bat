@@ -25,7 +25,7 @@ if not "%~1" == "" goto debugFile
 
 @echo on 
 
-"D:\Programs\IAR\common\bin\cspybat" -f "D:\Daniel\Programming\Embedded\Led_matrix\EWARM\settings\Led_matrix.Led_matrix.general.xcl" --backend -f "D:\Daniel\Programming\Embedded\Led_matrix\EWARM\settings\Led_matrix.Led_matrix.driver.xcl" 
+"D:\Programs\IAR\common\bin\cspybat" -f "D:\Daniel\Programming\Embedded\LED-matrix-8x8\Led_matrix\EWARM\settings\Led_matrix.Led_matrix.general.xcl" --backend -f "D:\Daniel\Programming\Embedded\LED-matrix-8x8\Led_matrix\EWARM\settings\Led_matrix.Led_matrix.driver.xcl" 
 
 @echo off 
 goto end 
@@ -34,7 +34,7 @@ goto end
 
 @echo on 
 
-"D:\Programs\IAR\common\bin\cspybat" -f "D:\Daniel\Programming\Embedded\Led_matrix\EWARM\settings\Led_matrix.Led_matrix.general.xcl" "--debug_file=%~1" --backend -f "D:\Daniel\Programming\Embedded\Led_matrix\EWARM\settings\Led_matrix.Led_matrix.driver.xcl" 
+"D:\Programs\IAR\common\bin\cspybat" -f "D:\Daniel\Programming\Embedded\LED-matrix-8x8\Led_matrix\EWARM\settings\Led_matrix.Led_matrix.general.xcl" "--debug_file=%~1" --backend -f "D:\Daniel\Programming\Embedded\LED-matrix-8x8\Led_matrix\EWARM\settings\Led_matrix.Led_matrix.driver.xcl" 
 
 @echo off 
 :end

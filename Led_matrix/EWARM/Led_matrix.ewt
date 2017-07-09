@@ -1172,6 +1172,9 @@
         <name>$PROJ_DIR$\..\Src\gpio.c</name>
       </file>
       <file>
+        <name>$PROJ_DIR$\..\Src\led.c</name>
+      </file>
+      <file>
         <name>$PROJ_DIR$\..\Src\main.c</name>
       </file>
       <file>
