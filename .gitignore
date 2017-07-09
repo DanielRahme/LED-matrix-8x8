@@ -41,6 +41,10 @@
 *.su
 *.idb
 *.pdb
+*.pbd
+*.pbi
+*.browse
+
 
 # Kernel Module Compile Results
 *.mod*
@@ -71,6 +75,11 @@ Led_matrix/EWARM/settings/Led_matrix.dbgdt
 Led_matrix/EWARM/settings/Led_matrix.dni
 Led_matrix/EWARM/settings/Project.wsdt
 Led_matrix/EWARM/settings/Project.wspos
+
+Led_matrix/Test/Debug/
+/Led_matrix/Test/Debug/
+
+*/Debug/*
 
 .vscode/
 
