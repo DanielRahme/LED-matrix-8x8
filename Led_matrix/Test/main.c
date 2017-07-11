@@ -33,11 +33,10 @@
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
 #include "stm32f3xx_hal.h"
+/* USER CODE BEGIN Includes */
+#include <stdlib.h>
 #include "gpio.h"
 #include "led.h"
-
-/* USER CODE BEGIN Includes */
-
 /* USER CODE END Includes */
 
 /* Private variables ---------------------------------------------------------*/
@@ -57,10 +56,6 @@ void Error_Handler(void);
 /* USER CODE END PFP */
 
 /* USER CODE BEGIN 0 */
-
-
-
-
 
 /* USER CODE END 0 */
 
@@ -83,19 +78,80 @@ int main(void)
 	MX_GPIO_Init();
 
 	/* USER CODE BEGIN 2 */
+	struct Pattern pat1 = {
+		.delay = 1,
+		.pattern = {
+			0x80,
+			0x40}
+	};
 
+	struct Pattern pat2 = {
+		.delay = 1,
+		.pattern = {
+			0x40,
+			0x80}
+	};
+
+	struct Pattern pat3a = {
+		.delay = 1,
+		.pattern = {
+			0x80,
+			0x00}};
+
+	struct Pattern pat3b = {
+		.delay = 1,
+		.pattern = {
+			0xC0,
+			0x00}
+	};
+
+	struct Pattern pat3c = {
+		.delay = 1,
+		.pattern = {
+			0xC0,
+			0x40}
+	};
+
+	struct Pattern pat3d = {
+		.delay = 1,
+		.pattern = {
+			0xC0,
+			0xC0}
+	};
+
+	struct Pattern p[] = {pat3a, pat3b, pat3c, pat3d};
+	struct Animation anim1 = {
+		.length = 4,
+		.patterns = p
+	};
 	/* USER CODE END 2 */
 
 	/* Infinite loop */
 	/* USER CODE BEGIN WHILE */
+
+	const int delay = 0;
+	const int count = 20;
+
 	while (1)
 	{
 		//blink();
 		//blink();
+		//matrix();
+		
+		for (int i = 0; i < count; i++) {
+			disp_pattern(pat1);
+			HAL_Delay(delay);
+			leds_off();
+		}
 
-		leds_off();
+		for (int i = 0; i < count; i++) {
+			disp_pattern(pat2);
+			HAL_Delay(delay);
+			leds_off();
+		}
 
-		matrix();
+		disp_animation(anim1, 20);
+		
 		/* USER CODE END WHILE */
 
 		/* USER CODE BEGIN 3 */

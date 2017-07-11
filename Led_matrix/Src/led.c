@@ -36,3 +36,32 @@ void matrix()
                 }
         }
 }
+
+
+
+void disp_pattern(const struct Pattern p)
+{
+        for (int i = 0; i < 2; i++) {
+                for (int j = 0; j < 8; j++) {
+                        //HAL_GPIO_WritePin(GPIOA, row[i], (pattern[i] >> 7-j) & 0x1);
+                        bool enable = (p.pattern[i] >> 7-j) & 0x1;
+                        HAL_GPIO_WritePin(GPIOA, row[i], enable);
+                        HAL_GPIO_WritePin(GPIOD, col[j], enable);
+                        HAL_Delay(p.delay);
+                }
+        }
+}
+
+void disp_animation(const struct Animation a, const int loops)
+{
+        for (int i = 0; i < a.length; i++) {
+                for (int j = 0; j < loops; j++) {
+			disp_pattern(a.patterns[i]);
+			HAL_Delay(a.patterns[i].delay);
+			leds_off();
+	        }
+        }
+}
+
+
+
