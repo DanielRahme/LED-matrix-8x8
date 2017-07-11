@@ -44,6 +44,8 @@
 *.pbd
 *.pbi
 *.browse
+*.dni
+*.dbgdt
 
 
 # Kernel Module Compile Results
