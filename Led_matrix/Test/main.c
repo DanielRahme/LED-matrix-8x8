@@ -37,6 +37,8 @@
 #include <stdlib.h>
 #include "gpio.h"
 #include "led.h"
+#include "patterns.h"
+#include "animations.h"
 /* USER CODE END Includes */
 
 /* Private variables ---------------------------------------------------------*/
@@ -78,52 +80,15 @@ int main(void)
 	MX_GPIO_Init();
 
 	/* USER CODE BEGIN 2 */
-	struct Pattern pat1 = {
-		.delay = 1,
-		.pattern = {
-			0x80,
-			0x40}
-	};
-
-	struct Pattern pat2 = {
-		.delay = 1,
-		.pattern = {
-			0x40,
-			0x80}
-	};
-
-	struct Pattern pat3a = {
-		.delay = 1,
-		.pattern = {
-			0x80,
-			0x00}};
-
-	struct Pattern pat3b = {
-		.delay = 1,
-		.pattern = {
-			0xC0,
-			0x00}
-	};
-
-	struct Pattern pat3c = {
-		.delay = 1,
-		.pattern = {
-			0xC0,
-			0x40}
-	};
-
-	struct Pattern pat3d = {
-		.delay = 1,
-		.pattern = {
-			0xC0,
-			0xC0}
-	};
-
-	struct Pattern p[] = {pat3a, pat3b, pat3c, pat3d};
+	
+	struct Pattern pats[4] = {pat3a, pat3b, pat3c, pat3d};
 	struct Animation anim1 = {
-		.length = 4,
-		.patterns = p
+		.length = sizeof(pats) / sizeof(pats[0]),
+		.patterns = pats
 	};
+	
+
+	
 	/* USER CODE END 2 */
 
 	/* Infinite loop */

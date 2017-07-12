@@ -6,17 +6,14 @@
 #include "gpio.h"
 #include <stdlib.h>
 #include <stdbool.h>
+#include "patterns.h"
+#include "animations.h"
 
-struct Pattern {
-        int delay;
-        uint8_t pattern[2];
-};
 
 struct Animation {
         int length;
         struct Pattern *patterns;
 };
-
 
 
 void leds_off();
