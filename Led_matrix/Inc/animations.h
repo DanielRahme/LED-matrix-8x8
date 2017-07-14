@@ -8,7 +8,21 @@
 #include "led.h"
 #include "patterns.h"
 
+struct Animation {
+        int length;
+        struct Pattern *patterns;
+};
 
-extern struct Animation a2;
+
+
+void construct_anim(struct Animation *a, const int length);
+void destruct_anim(struct Animation *a);
+void add_animation(struct Animation *a, const struct Pattern pat[]);
+
+
+//extern const struct Pattern anim_test[3];
+
+
+   
 
 #endif

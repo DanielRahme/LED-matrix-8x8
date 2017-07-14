@@ -10,11 +10,6 @@
 #include "animations.h"
 
 
-struct Animation {
-        int length;
-        struct Pattern *patterns;
-};
-
 
 void leds_off();
 void leds_on();
@@ -22,5 +17,6 @@ void blink();
 void matrix();
 void disp_pattern(const struct Pattern p);
 void disp_animation(const struct Animation a, const int loops);
+void disp_animation_ptr(const struct Animation *a, const int loops);
 
 #endif

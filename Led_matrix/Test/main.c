@@ -59,7 +59,45 @@ void Error_Handler(void);
 
 /* USER CODE BEGIN 0 */
 
+//move to animations.c
+bool animate(struct Pattern pats[], int length, int time)
+{
+	struct Animation anim;
+	construct_anim(&anim, length);
+	add_animation(&anim, pats);
+	disp_animation(anim, time);
+	destruct_anim(&anim);
+	return true;
+}
+
 /* USER CODE END 0 */
+
+bool test_animation()
+{
+	struct Pattern pats[100];
+	for (int i = 0; i < 100; i++)
+		pats[i] = pat1;
+	
+	for (int i = 0; i < 100; i++) {
+		struct Animation a;
+
+		construct_anim(&a, i);
+		if (a.length != i)
+			return false;
+			
+		//add_animation(&a, pats);
+		
+		/*for (int j = 0; j < a.length; j++) {
+			if (a.patterns[j].pattern[0] != pats[j].pattern[0])
+				return false;
+		}*/
+		destruct_anim(&a);
+	}
+	
+	return true;
+}
+
+
 
 int main(void)
 {
@@ -80,15 +118,12 @@ int main(void)
 	MX_GPIO_Init();
 
 	/* USER CODE BEGIN 2 */
-	
+
 	struct Pattern pats[4] = {pat3a, pat3b, pat3c, pat3d};
 	struct Animation anim1 = {
 		.length = sizeof(pats) / sizeof(pats[0]),
 		.patterns = pats
 	};
-	
-
-	
 	/* USER CODE END 2 */
 
 	/* Infinite loop */
@@ -102,7 +137,7 @@ int main(void)
 		//blink();
 		//blink();
 		//matrix();
-		
+
 		for (int i = 0; i < count; i++) {
 			disp_pattern(pat1);
 			HAL_Delay(delay);
@@ -115,8 +150,10 @@ int main(void)
 			leds_off();
 		}
 
-		disp_animation(anim1, 20);
-		
+
+		if (test_animation())
+			animate(pats, 4, 20);
+
 		/* USER CODE END WHILE */
 
 		/* USER CODE BEGIN 3 */

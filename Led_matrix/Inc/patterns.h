@@ -11,12 +11,12 @@ struct Pattern {
         uint8_t pattern[2];
 };
 
-extern struct Pattern pat1;
-extern struct Pattern pat2;
-extern struct Pattern pat3a;
-extern struct Pattern pat3b;
-extern struct Pattern pat3c;
-extern struct Pattern pat3d;
+extern const struct Pattern pat1;
+extern const struct Pattern pat2;
+extern const struct Pattern pat3a;
+extern const struct Pattern pat3b;
+extern const struct Pattern pat3c;
+extern const struct Pattern pat3d;
 
 
 #endif
