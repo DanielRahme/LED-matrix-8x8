@@ -1,7 +1,10 @@
 #include "led.h"
 
-const uint16_t col[2] = {col0_Pin, col1_Pin};
-const uint16_t row[2] = {Row0_Pin, Row1_Pin};
+#define ROWS 2 //change to 8 when matrix hw is done
+#define COLS 8
+
+const uint16_t col_pins[2] = {col0_Pin, col1_Pin};
+const uint16_t row_pins[2] = {Row0_Pin, Row1_Pin};
 
 void leds_off()
 {
@@ -15,22 +18,20 @@ void leds_on()
         HAL_GPIO_WritePin(GPIOD, col0_Pin | col1_Pin | col2_Pin | col3_Pin | col4_Pin | col5_Pin | col6_Pin | col7_Pin, 1);
 }
 
-void blink()
+void blink(const uint32_t delay)
 {
-        const int delay = 200;
         leds_on();
         HAL_Delay(delay);
         leds_off();
         HAL_Delay(delay);
 }
 
-void matrix()
+void matrix_test(const uint32_t delay)
 {
-        const int delay = 200;
         for (int i = 0; i < 2; i++) {
                 for (int j = 0; j < 2; j++) {
-                        HAL_GPIO_WritePin(GPIOA, row[i], 1);
-                        HAL_GPIO_WritePin(GPIOD, col[j], 1);
+                        HAL_GPIO_WritePin(GPIOA, row_pins[i], 1);
+                        HAL_GPIO_WritePin(GPIOD, col_pins[j], 1);
                         HAL_Delay(delay);
                         leds_off();
                 }
@@ -38,26 +39,35 @@ void matrix()
 }
 
 
-
 void disp_pattern(const struct Pattern p)
 {
-        for (int i = 0; i < 2; i++) {
-                for (int j = 0; j < 8; j++) {
-                        //HAL_GPIO_WritePin(GPIOA, row[i], (pattern[i] >> 7-j) & 0x1);
+        for (int i = 0; i < ROWS; i++) {
+                for (int j = 0; j < COLS; j++) {
                         bool enable = (p.pattern[i] >> 7-j) & 0x1;
-                        HAL_GPIO_WritePin(GPIOA, row[i], enable);
-                        HAL_GPIO_WritePin(GPIOD, col[j], enable);
+                        HAL_GPIO_WritePin(GPIOA, row_pins[i], enable);
+                        HAL_GPIO_WritePin(GPIOD, col_pins[j], enable);
                         HAL_Delay(p.delay);
                 }
         }
 }
 
-void disp_animation(const struct Animation a, const int loops)
+void disp_animation(struct Animation a, const int loops)
 {
         for (int i = 0; i < a.length; i++) {
                 for (int j = 0; j < loops; j++) {
 			disp_pattern(a.patterns[i]);
 			HAL_Delay(a.patterns[i].delay);
+			leds_off();
+	        }
+        }
+}
+
+void disp_animation_ptr(struct Animation *a, const int loops)
+{
+        for (int i = 0; i < a->length; i++) {
+                for (int j = 0; j < loops; j++) {
+			disp_pattern(a->patterns[i]);
+			HAL_Delay(a->patterns[i].delay);
 			leds_off();
 	        }
         }

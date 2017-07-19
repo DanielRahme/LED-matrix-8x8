@@ -18,6 +18,7 @@ struct Animation {
 void construct_anim(struct Animation *a, const int length);
 void destruct_anim(struct Animation *a);
 void add_animation(struct Animation *a, const struct Pattern pat[]);
+//void animate(struct Pattern pats[], const int length, const int loops);
 
 
 //extern const struct Pattern anim_test[3];

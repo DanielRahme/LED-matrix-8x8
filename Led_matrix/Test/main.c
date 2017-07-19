@@ -1,35 +1,11 @@
 /**
 ******************************************************************************
-* File Name          : main.c
-* Description        : Main program body
-******************************************************************************
-*
-* COPYRIGHT(c) 2017 STMicroelectronics
-*
-* Redistribution and use in source and binary forms, with or without modification,
-* are permitted provided that the following conditions are met:
-*   1. Redistributions of source code must retain the above copyright notice,
-*      this list of conditions and the following disclaimer.
-*   2. Redistributions in binary form must reproduce the above copyright notice,
-*      this list of conditions and the following disclaimer in the documentation
-*      and/or other materials provided with the distribution.
-*   3. Neither the name of STMicroelectronics nor the names of its contributors
-*      may be used to endorse or promote products derived from this software
-*      without specific prior written permission.
-*
-* THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
-* AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
-* IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
-* DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
-* FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
-* DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
-* SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
-* CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
-* OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
-* OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-*
+* Author 	: Daniel Rahme
+* File Name	: main.c
+* Description	: Test main program body
 ******************************************************************************
 */
+
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
 #include "stm32f3xx_hal.h"
@@ -42,10 +18,8 @@
 /* USER CODE END Includes */
 
 /* Private variables ---------------------------------------------------------*/
-
 /* USER CODE BEGIN PV */
 /* Private variables ---------------------------------------------------------*/
-
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -54,24 +28,9 @@ void Error_Handler(void);
 
 /* USER CODE BEGIN PFP */
 /* Private function prototypes -----------------------------------------------*/
-
 /* USER CODE END PFP */
 
 /* USER CODE BEGIN 0 */
-
-//move to animations.c
-bool animate(struct Pattern pats[], int length, int time)
-{
-	struct Animation anim;
-	construct_anim(&anim, length);
-	add_animation(&anim, pats);
-	disp_animation(anim, time);
-	destruct_anim(&anim);
-	return true;
-}
-
-/* USER CODE END 0 */
-
 bool test_animation()
 {
 	struct Pattern pats[100];
@@ -97,7 +56,16 @@ bool test_animation()
 	return true;
 }
 
-
+void animate(struct Pattern pats[], const int length, const int loops)
+{
+	struct Animation anim;
+	construct_anim(&anim, length);
+	add_animation(&anim, pats);
+	//disp_animation_ptr(&anim, loops);
+        disp_animation(anim, loops);
+	destruct_anim(&anim);
+}
+/* USER CODE END 0 */
 
 int main(void)
 {
@@ -128,7 +96,6 @@ int main(void)
 
 	/* Infinite loop */
 	/* USER CODE BEGIN WHILE */
-
 	const int delay = 0;
 	const int count = 20;
 
@@ -152,12 +119,10 @@ int main(void)
 
 
 		if (test_animation())
-			animate(pats, 4, 20);
+			animate(pats, 4, 10);
 
 		/* USER CODE END WHILE */
-
 		/* USER CODE BEGIN 3 */
-
 	}
 	/* USER CODE END 3 */
 

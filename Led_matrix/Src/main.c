@@ -86,12 +86,12 @@ int main(void)
 	/* USER CODE BEGIN WHILE */
 	while (1)
 	{
-		blink();
-		blink();
+		blink(100);
+		blink(100);
 
 		leds_off();
 
-		matrix();
+		matrix_test(200);
 		/* USER CODE END WHILE */
 
 		/* USER CODE BEGIN 3 */
