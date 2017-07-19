@@ -105,6 +105,7 @@ int main(void)
 		//blink();
 		//matrix();
 
+
 		for (int i = 0; i < count; i++) {
 			disp_pattern(pat1);
 			HAL_Delay(delay);
