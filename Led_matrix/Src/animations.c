@@ -23,6 +23,13 @@ void add_animation(struct Animation *a, const struct Pattern pat[])
                 a->patterns[i] = pat[i];    
 }
 
+void add_animation_ptr(struct Animation *a, const struct Pattern *pat[])
+{
+        for (int i = 0; i < a->length; i++) 
+                a->patterns[i] = *pat[i];    
+}
+
+
 /*
 void animate(struct Pattern pats[], const int length, const int loops)
 {
@@ -38,5 +45,8 @@ void animate(struct Pattern pats[], const int length, const int loops)
 
 
 /********* Animations ****************/
-//const struct Pattern anim_test[3] = {pat1, pat2, pat3d};
+const struct Pattern *anim_1[2] = {&pat1, &pat2};
+const struct Pattern *anim_cw_sqr[4] = {&pat3a, &pat3b, &pat3c, &pat3d};
+const struct Pattern *anim_ccw_sqr[4] = {&pat3d, &pat3c, &pat3b, &pat3a};
+
 

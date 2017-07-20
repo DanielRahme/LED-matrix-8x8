@@ -65,35 +65,33 @@ void animate(struct Pattern pats[], const int length, const int loops)
         disp_animation(anim, loops);
 	destruct_anim(&anim);
 }
+
+void animate_ptr(struct Pattern *pats[], const int length, const int loops)
+{
+	struct Animation anim;
+	construct_anim(&anim, length);
+	add_animation_ptr(&anim, pats);
+	//disp_animation_ptr(&anim, loops);
+        disp_animation(anim, loops);
+	destruct_anim(&anim);
+}
 /* USER CODE END 0 */
 
 int main(void)
 {
-
 	/* USER CODE BEGIN 1 */
 
 	/* USER CODE END 1 */
-
 	/* MCU Configuration----------------------------------------------------------*/
-
 	/* Reset of all peripherals, Initializes the Flash interface and the Systick. */
 	HAL_Init();
-
 	/* Configure the system clock */
 	SystemClock_Config();
-
 	/* Initialize all configured peripherals */
 	MX_GPIO_Init();
-
 	/* USER CODE BEGIN 2 */
 
-	struct Pattern pats[4] = {pat3a, pat3b, pat3c, pat3d};
-	struct Animation anim1 = {
-		.length = sizeof(pats) / sizeof(pats[0]),
-		.patterns = pats
-	};
 	/* USER CODE END 2 */
-
 	/* Infinite loop */
 	/* USER CODE BEGIN WHILE */
 	const int delay = 0;
@@ -101,32 +99,16 @@ int main(void)
 
 	while (1)
 	{
-		//blink();
-		//blink();
-		//matrix();
+		animate_ptr(anim_1, 2, 10);
+		animate_ptr(anim_cw_sqr, 4, 10);
+		animate_ptr(anim_ccw_sqr, 4, 10);
 
-
-		for (int i = 0; i < count; i++) {
-			disp_pattern(pat1);
-			HAL_Delay(delay);
-			leds_off();
-		}
-
-		for (int i = 0; i < count; i++) {
-			disp_pattern(pat2);
-			HAL_Delay(delay);
-			leds_off();
-		}
-
-
-		if (test_animation())
-			animate(pats, 4, 10);
+		animate_ptr(anim_cw_sqr, 4, 8);
 
 		/* USER CODE END WHILE */
 		/* USER CODE BEGIN 3 */
 	}
 	/* USER CODE END 3 */
-
 }
 
 /** System Clock Configuration
