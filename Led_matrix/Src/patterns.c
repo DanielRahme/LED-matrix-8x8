@@ -15,6 +15,7 @@ const struct Pattern pat2 = {
 		0x80}
 };
 
+/***/
 const struct Pattern pat3a = {
 	.delay = 1,
 	.pattern = {
@@ -41,4 +42,34 @@ const struct Pattern pat3d = {
 	.pattern = {
 		0xC0,
 		0xC0}
+};
+/***/
+
+
+const struct Pattern pat3a_inv = {
+	.delay = 1,
+	.pattern = {
+		0xF0^0x80,
+		0xF0^0x00}
+ };
+
+const struct Pattern pat3b_inv = {
+        .delay = 1,
+        .pattern = {
+        	0xF0^0xC0,
+		0xF0^0x00}
+};
+
+const struct Pattern pat3c_inv = {
+	.delay = 1,
+	.pattern = {
+		0xF0^0xC0,
+		0xF0^0x40}
+};
+
+const struct Pattern pat3d_inv = {
+	.delay = 1,
+	.pattern = {
+		0xF0^0xC0,
+		0xF0^0xC0}
 };

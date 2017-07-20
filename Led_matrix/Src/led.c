@@ -51,16 +51,7 @@ void disp_pattern(const struct Pattern p)
         }
 }
 
-void disp_animation(struct Animation a, const int loops)
-{
-        for (int i = 0; i < a.length; i++) {
-                for (int j = 0; j < loops; j++) {
-			disp_pattern(a.patterns[i]);
-			HAL_Delay(a.patterns[i].delay);
-			leds_off();
-	        }
-        }
-}
+
 
 void disp_animation_ptr(struct Animation *a, const int loops)
 {

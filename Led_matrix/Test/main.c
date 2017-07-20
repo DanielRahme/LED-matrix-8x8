@@ -56,6 +56,7 @@ bool test_animation()
 	return true;
 }
 
+/*
 void animate(struct Pattern pats[], const int length, const int loops)
 {
 	struct Animation anim;
@@ -65,7 +66,9 @@ void animate(struct Pattern pats[], const int length, const int loops)
         disp_animation(anim, loops);
 	destruct_anim(&anim);
 }
+*/
 
+/*
 void animate_ptr(struct Pattern *pats[], const int length, const int loops)
 {
 	struct Animation anim;
@@ -75,6 +78,8 @@ void animate_ptr(struct Pattern *pats[], const int length, const int loops)
         disp_animation(anim, loops);
 	destruct_anim(&anim);
 }
+*/
+
 /* USER CODE END 0 */
 
 int main(void)
@@ -99,11 +104,12 @@ int main(void)
 
 	while (1)
 	{
-		animate_ptr(anim_1, 2, 10);
-		animate_ptr(anim_cw_sqr, 4, 10);
-		animate_ptr(anim_ccw_sqr, 4, 10);
+		animate(anim_1, 2, 10);
+		animate(anim_cw_sqr, 4, 10);
+		animate(anim_ccw_sqr, 4, 10);
 
-		animate_ptr(anim_cw_sqr, 4, 8);
+		animate(anim_cw_sqr, 4, 8);
+		animate(anim_cw_sqr_inv, 4, 10);
 
 		/* USER CODE END WHILE */
 		/* USER CODE BEGIN 3 */

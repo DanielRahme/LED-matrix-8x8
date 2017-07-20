@@ -13,10 +13,16 @@ struct Pattern {
 
 extern const struct Pattern pat1;
 extern const struct Pattern pat2;
+
 extern const struct Pattern pat3a;
 extern const struct Pattern pat3b;
 extern const struct Pattern pat3c;
 extern const struct Pattern pat3d;
+
+extern const struct Pattern pat3a_inv;
+extern const struct Pattern pat3b_inv;
+extern const struct Pattern pat3c_inv;
+extern const struct Pattern pat3d_inv;
 
 
 #endif
