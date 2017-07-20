@@ -24,5 +24,7 @@ extern const struct Pattern pat3b_inv;
 extern const struct Pattern pat3c_inv;
 extern const struct Pattern pat3d_inv;
 
+extern const struct Pattern pat_low_half;
+
 
 #endif

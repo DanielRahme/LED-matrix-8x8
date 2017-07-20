@@ -31,54 +31,7 @@ void Error_Handler(void);
 /* USER CODE END PFP */
 
 /* USER CODE BEGIN 0 */
-bool test_animation()
-{
-	struct Pattern pats[100];
-	for (int i = 0; i < 100; i++)
-		pats[i] = pat1;
-	
-	for (int i = 0; i < 100; i++) {
-		struct Animation a;
 
-		construct_anim(&a, i);
-		if (a.length != i)
-			return false;
-			
-		//add_animation(&a, pats);
-		
-		/*for (int j = 0; j < a.length; j++) {
-			if (a.patterns[j].pattern[0] != pats[j].pattern[0])
-				return false;
-		}*/
-		destruct_anim(&a);
-	}
-	
-	return true;
-}
-
-/*
-void animate(struct Pattern pats[], const int length, const int loops)
-{
-	struct Animation anim;
-	construct_anim(&anim, length);
-	add_animation(&anim, pats);
-	//disp_animation_ptr(&anim, loops);
-        disp_animation(anim, loops);
-	destruct_anim(&anim);
-}
-*/
-
-/*
-void animate_ptr(struct Pattern *pats[], const int length, const int loops)
-{
-	struct Animation anim;
-	construct_anim(&anim, length);
-	add_animation_ptr(&anim, pats);
-	//disp_animation_ptr(&anim, loops);
-        disp_animation(anim, loops);
-	destruct_anim(&anim);
-}
-*/
 
 /* USER CODE END 0 */
 
@@ -104,12 +57,20 @@ int main(void)
 
 	while (1)
 	{
-		animate(anim_1, 2, 10);
+		//disp_pattern(pat2);
+		//matrix_test(100);
+		
+		animate(anim_1, 2, 30);
 		animate(anim_cw_sqr, 4, 10);
 		animate(anim_ccw_sqr, 4, 10);
 
 		animate(anim_cw_sqr, 4, 8);
 		animate(anim_cw_sqr_inv, 4, 10);
+		
+		
+
+		//animate(anim_half, 1, 10);
+		
 
 		/* USER CODE END WHILE */
 		/* USER CODE BEGIN 3 */
