@@ -7,10 +7,11 @@
 #include "led.h"
 
 struct Pattern {
-        int delay;
-        uint8_t pattern[2];
+        uint8_t delay;
+        uint8_t pattern[8];
 };
 
+extern const struct Pattern pat_clear;
 extern const struct Pattern pat1;
 extern const struct Pattern pat2;
 

@@ -1,6 +1,6 @@
 #include "led.h"
 
-#define ROWS 2 //change to 8 when matrix hw is done
+#define ROWS 8 //change to 8 when matrix hw is done
 #define COLS 8
 
 const uint16_t row_pins[2] = {Row0_Pin, Row1_Pin};
@@ -51,6 +51,18 @@ void disp_pattern(const struct Pattern p)
                 leds_off();
         }
 }
+
+void print_pattern(const struct Pattern p)
+{
+        for (int i = 0; i < ROWS; i++) {
+                for (int j = 0; j < COLS; j++) {
+                        bool enable = (p.pattern[i] >> 7-j) & 0x1;
+                               printf(enable ? " #" : " .");
+                }
+        }
+}
+
+
 
 
 

@@ -1,6 +1,19 @@
 
 #include "patterns.h"
 
+const struct Pattern pat_clear = {
+	.delay = 1,
+	.pattern = {
+		0,
+		0,
+		0,
+		0,
+		0,
+		0,
+		0,
+		0}
+};
+
 const struct Pattern pat1 = {
 	.delay = 1,
 	.pattern = {

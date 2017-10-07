@@ -54,23 +54,17 @@ int main(void)
 	/* USER CODE BEGIN WHILE */
 	const int delay = 0;
 	const int count = 20;
+	
 
-	while (1)
-	{
-		//disp_pattern(pat2);
-		//matrix_test(100);
-		
-		animate(anim_1, 2, 30);
-		animate(anim_cw_sqr, 4, 10);
-		animate(anim_ccw_sqr, 4, 10);
+	while (1) {
 
-		animate(anim_cw_sqr, 4, 8);
-		animate(anim_cw_sqr_inv, 4, 10);
-		
-		
+		printf("\n\n\n\n");
+
+		print_pattern(pat_clear);
+		printf("\n\n\n\n");
 
 		//animate(anim_half, 1, 10);
-		
+
 
 		/* USER CODE END WHILE */
 		/* USER CODE BEGIN 3 */
