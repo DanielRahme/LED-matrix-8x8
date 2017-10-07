@@ -52,15 +52,29 @@ void disp_pattern(const struct Pattern p)
         }
 }
 
+void print_row(const uint8_t row)
+{
+	if (!row) {
+		printf(". . . . . . . .");
+		return;
+	}
+
+		
+	for (int i = 0; i < ROWS; i++) {	
+		bool enable = (row >> 7-i) & 0x1;
+		printf(enable ? " #" : " .");
+	}
+}
+
+
 void print_pattern(const struct Pattern p)
 {
         for (int i = 0; i < ROWS; i++) {
-                for (int j = 0; j < COLS; j++) {
-                        bool enable = (p.pattern[i] >> 7-j) & 0x1;
-                               printf(enable ? " #" : " .");
-                }
+		print_row(p.pattern[i]);
+                printf("\n");
         }
 }
+
 
 
 

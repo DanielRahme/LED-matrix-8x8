@@ -31,7 +31,44 @@ void Error_Handler(void);
 /* USER CODE END PFP */
 
 /* USER CODE BEGIN 0 */
+const struct Pattern pat_test_1 = {
+	.delay = 1,
+	.pattern = {
+		0xAA,
+		0xAA,
+		0xAA,
+		0xAA,
+		0xAA,
+		0xAA,
+		0xAA,
+		0xAA}
+};
 
+const struct Pattern pat_test_2 = {
+	.delay = 1,
+	.pattern = {
+		0x55,
+		0x55,
+		0x55,
+		0x55,
+		0x55,
+		0x55,
+		0x55,
+		0x55}
+};
+
+const struct Pattern pat_test_3 = {
+	.delay = 1,
+	.pattern = {
+		0xAA,
+		0xAB,
+		0xAA,
+		0x55,
+		0xAA,
+		0x55,
+		0xAA,
+		0x55}
+};
 
 /* USER CODE END 0 */
 
@@ -57,14 +94,8 @@ int main(void)
 	
 
 	while (1) {
-
+		print_pattern(pat_test_3);
 		printf("\n\n\n\n");
-
-		print_pattern(pat_clear);
-		printf("\n\n\n\n");
-
-		//animate(anim_half, 1, 10);
-
 
 		/* USER CODE END WHILE */
 		/* USER CODE BEGIN 3 */

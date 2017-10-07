@@ -36,6 +36,8 @@ void disp_animation(struct Animation a, const int loops)
 }
 
 
+
+
 void animate(struct Pattern *pats[], const int length, const int loops)
 {
 	struct Animation anim;
