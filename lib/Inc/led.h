@@ -14,6 +14,8 @@
 void write_row(const uint8_t row);
 void leds_off();
 void leds_on();
+void row_scroll_down(const uint8_t row, const uint32_t delay_ms);
+void row_scroll_up(const uint8_t row, const uint32_t delay_ms);
 void matrix_test(const uint32_t delay);
 void blink(const uint32_t delay);
 //void disp_pattern(const struct Pattern p);
