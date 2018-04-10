@@ -16,7 +16,6 @@ void leds_off()
 	for (int i = 0; i < ROWS; i++) {
 		HAL_GPIO_WritePin(row_ports[i], row_pins[i], 1);
 		HAL_GPIO_WritePin(col_ports[i], col_pins[i], 0);
-
 	}
 }
 
@@ -25,7 +24,34 @@ void leds_on()
 	for (int i = 0; i < ROWS; i++) {
 		HAL_GPIO_WritePin(row_ports[i], row_pins[i], 0);
 		HAL_GPIO_WritePin(col_ports[i], col_pins[i], 1);
+	}
+}
 
+void row_sw_off()
+{
+	for (int i = 0; i < ROWS; i++) {
+		HAL_GPIO_WritePin(row_ports[i], row_pins[i], 1);
+
+	}
+}
+
+void row_scroll_down(const uint8_t row, const uint32_t delay_ms)
+{
+	write_row(row);
+	for (int i = 0; i < COLS; i++) {
+		HAL_GPIO_WritePin(row_ports[i], row_pins[i], 0);
+		HAL_Delay(delay_ms);
+		row_sw_off();
+	}
+}
+
+void row_scroll_up(const uint8_t row, const uint32_t delay_ms)
+{
+	write_row(row);
+	for (int i = COLS-1; i >= 0; i--) {
+		HAL_GPIO_WritePin(row_ports[i], row_pins[i], 0);
+		HAL_Delay(delay_ms);
+		row_sw_off();
 	}
 }
 
