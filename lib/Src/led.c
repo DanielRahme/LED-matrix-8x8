@@ -43,6 +43,7 @@ void row_scroll_down(const uint8_t row, const uint32_t delay_ms)
 		HAL_Delay(delay_ms);
 		row_sw_off();
 	}
+
 }
 
 void row_scroll_up(const uint8_t row, const uint32_t delay_ms)
@@ -53,36 +54,29 @@ void row_scroll_up(const uint8_t row, const uint32_t delay_ms)
 		HAL_Delay(delay_ms);
 		row_sw_off();
 	}
+
 }
 
-void row_sw_off()
+void col_scroll_right(const uint32_t delay_ms)
 {
-	for (int i = 0; i < ROWS; i++) {
-		HAL_GPIO_WritePin(row_ports[i], row_pins[i], 1);
-
-	}
-}
-
-void row_scroll_down(const uint8_t row, const uint32_t delay_ms)
-{
-	write_row(row);
+	uint8_t pos = 0x80;
 	for (int i = 0; i < COLS; i++) {
-		HAL_GPIO_WritePin(row_ports[i], row_pins[i], 0);
-		HAL_Delay(delay_ms);
-		row_sw_off();
+		for (int j = 0; j < delay_ms; j++) {
+			row_scroll_down(pos, 1);
+		}
+		pos >>= 1;
 	}
-
 }
 
-void row_scroll_up(const uint8_t row, const uint32_t delay_ms)
+void col_scroll_left(const uint32_t delay_ms)
 {
-	write_row(row);
-	for (int i = COLS-1; i >= 0; i--) {
-		HAL_GPIO_WritePin(row_ports[i], row_pins[i], 0);
-		HAL_Delay(delay_ms);
-		row_sw_off();
+	uint8_t pos = 0x01;
+	for (int i = 0; i < COLS; i++) {
+		for (int j = 0; j < delay_ms; j++) {
+			row_scroll_down(pos, 0);
+		}
+		pos <<= 1;
 	}
-
 }
 
 void blink(const uint32_t delay)
@@ -93,32 +87,21 @@ void blink(const uint32_t delay)
 	HAL_Delay(delay);
 }
 
-void matrix_test(const uint32_t delay)
-{
-	for (int i = 0; i < ROWS; i++) {
-		for (int j = 0; j < COLS; j++) {
-			HAL_GPIO_WritePin(GPIOA, row_pins[i], 1);
-			HAL_GPIO_WritePin(GPIOD, col_pins[j], 1);
-			HAL_Delay(delay);
-			leds_off();
-		}
-	}
-}
 
-/*
 void disp_pattern(const struct Pattern p)
 {
 	for (int i = 0; i < ROWS; i++) {
+		HAL_GPIO_WritePin(row_ports[i], row_pins[i], 0);
 		for (int j = 0; j < COLS; j++) {
-			bool enable = (p.pattern[i] >> 7-j) & 0x1;
-			HAL_GPIO_WritePin(GPIOA, row_pins[i], enable);
-			HAL_GPIO_WritePin(GPIOD, col_pins[j], enable);
-			HAL_Delay(p.delay);
+			bool state = (p.pattern[i] >> 7-j) & 0x1;
+			HAL_GPIO_WritePin(col_ports[j], col_pins[j], state);
 		}
+		HAL_Delay(p.delay);
 		leds_off();
 	}
 }
 
+/*
 void print_row(const uint8_t row)
 {
 	if (!row) {

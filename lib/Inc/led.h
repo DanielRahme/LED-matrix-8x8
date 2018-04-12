@@ -7,7 +7,7 @@
 #include <stdlib.h>
 #include <stdbool.h>
 #include "led_hw.h"
-//#include "patterns.h"
+#include "patterns.h"
 //#include "animations.h"
 
 
@@ -16,9 +16,10 @@ void leds_off();
 void leds_on();
 void row_scroll_down(const uint8_t row, const uint32_t delay_ms);
 void row_scroll_up(const uint8_t row, const uint32_t delay_ms);
-void matrix_test(const uint32_t delay);
+void col_scroll_right(const uint32_t delay_ms);
+void col_scroll_left(const uint32_t delay_ms);
 void blink(const uint32_t delay);
-//void disp_pattern(const struct Pattern p);
+void disp_pattern(const struct Pattern p);
 //void print_pattern(const struct Pattern p);
 
 
