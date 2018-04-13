@@ -1,6 +1,7 @@
 
 #include "patterns.h"
 
+
 const struct Pattern pat_clear = {
 	.delay = 1,
 	.pattern = {
@@ -14,85 +15,99 @@ const struct Pattern pat_clear = {
 		0}
 };
 
-const struct Pattern pat1 = {
+const struct Pattern pat_smile_1 = {
 	.delay = 1,
 	.pattern = {
-		0x80,
-		0x40}
+		0x00,
+		0x66,
+		0x66,
+		0x00,
+		0x00,
+		0x42,
+		0x66,
+		0x3c}
 };
 
-const struct Pattern pat2 = {
+const struct Pattern pat_smile_2 = {
 	.delay = 1,
 	.pattern = {
-		0x40,
-		0x80}
+		0x00,
+		0xa2,
+		0x45,
+		0xa2,
+		0x00,
+		0x81,
+		0x42,
+		0x3c}
 };
 
-/***/
-const struct Pattern pat3a = {
+const struct Pattern pat_smile_3 = {
 	.delay = 1,
 	.pattern = {
-		0x80,
-		0x00}
- };
-
-const struct Pattern pat3b = {
-        .delay = 1,
-        .pattern = {
-        	0xC0,
-		0x00}
+		0xa2,
+		0x47,
+		0xa2,
+		0x00,
+		0x81,
+		0xc3,
+		0x7e,
+		0x3c}
 };
 
-const struct Pattern pat3c = {
+const struct Pattern pat_pi = {
 	.delay = 1,
 	.pattern = {
-		0xC0,
-		0x40}
+		0x00,
+		0x7f,
+		0xa4,
+		0x24,
+		0x24,
+		0x24,
+		0x22,
+		0x21}
 };
 
-const struct Pattern pat3d = {
+const struct Pattern pat_dance_1a = {
 	.delay = 1,
 	.pattern = {
-		0xC0,
-		0xC0}
-};
-/***/
-
-
-const struct Pattern pat3a_inv = {
-	.delay = 1,
-	.pattern = {
-		0xFF^0x80,
-		0xFF^0x00}
- };
-
-const struct Pattern pat3b_inv = {
-        .delay = 1,
-        .pattern = {
-        	0xFF^0xC0,
-		0xFF^0x00}
+		0x18,0x39,0xA,0x1C,0x28,0x48,0x14,0x22
+	}
 };
 
-const struct Pattern pat3c_inv = {
+const struct Pattern pat_dance_1b = {
 	.delay = 1,
 	.pattern = {
-		0xFF^0xC0,
-		0xFF^0x40}
-};
-
-const struct Pattern pat3d_inv = {
-	.delay = 1,
-	.pattern = {
-		0xFF^0xC0,
-		0xFF^0xC0}
+		0xC,0x4E,0x28,0x1C,0xA,0x9,0x14,0x22
+	}
 };
 
 
-/***/
-const struct Pattern pat_low_half = {
+
+const struct Pattern pat_square_1a = {
 	.delay = 1,
 	.pattern = {
-		0x0F,
-		0x0F}
+		0xFF,0x81,0x81,0x81,0x81,0x81,0x81,0xFF
+	}
+};
+
+const struct Pattern pat_square_1b = {
+	.delay = 1,
+	.pattern = {
+		0x0,0x7E,0x42,0x42,0x42,0x42,0x7E,0x0
+	}
+};
+
+const struct Pattern pat_square_1c = {
+	.delay = 1,
+	.pattern = {
+		0x0,0x0,0x3C,0x24,0x24,0x3C,0x0,0x0
+	}
+};
+
+const struct Pattern pat_square_1d = {
+	.delay = 1,
+	.pattern = {
+		0x0,0x0,0x0,0x18,0x18,0x0,0x0,0x0
+	}
 };
 

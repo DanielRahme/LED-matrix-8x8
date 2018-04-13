@@ -12,20 +12,20 @@ struct Pattern {
 };
 
 extern const struct Pattern pat_clear;
-extern const struct Pattern pat1;
-extern const struct Pattern pat2;
 
-extern const struct Pattern pat3a;
-extern const struct Pattern pat3b;
-extern const struct Pattern pat3c;
-extern const struct Pattern pat3d;
+extern const struct Pattern pat_smile_1;
+extern const struct Pattern pat_smile_2;
+extern const struct Pattern pat_smile_3;
 
-extern const struct Pattern pat3a_inv;
-extern const struct Pattern pat3b_inv;
-extern const struct Pattern pat3c_inv;
-extern const struct Pattern pat3d_inv;
+extern const struct Pattern pat_pi;
 
-extern const struct Pattern pat_low_half;
+extern const struct Pattern pat_dance_1a;
+extern const struct Pattern pat_dance_1b;
 
+
+extern const struct Pattern pat_square_1a;
+extern const struct Pattern pat_square_1b;
+extern const struct Pattern pat_square_1c;
+extern const struct Pattern pat_square_1d;
 
 #endif
