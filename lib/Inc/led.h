@@ -6,6 +6,7 @@
 #include "gpio.h"
 #include <stdlib.h>
 #include <stdbool.h>
+#include <stdarg.h>
 #include "led_hw.h"
 #include "patterns.h"
 //#include "animations.h"
@@ -21,6 +22,7 @@ void col_scroll_right(const uint32_t delay_ms);
 void col_scroll_left(const uint32_t delay_ms);
 void blink(const uint32_t delay);
 void disp_pattern(const struct Pattern p, const uint32_t duration);
+void animate(uint16_t num_of_patterns, ...);
 //void print_pattern(const struct Pattern p);
 
 

@@ -114,6 +114,17 @@ void disp_pattern(const struct Pattern p, const uint32_t duration)
 	}
 }
 
+void animate(uint16_t num_of_patterns, ...)
+{
+	va_list pat_list;
+	va_start(pat_list, num_of_patterns);
+
+	for (int i = 0; i < num_of_patterns; i++) {
+		struct Pattern p = va_arg(pat_list, struct Pattern);
+		disp_pattern(p, 10);
+	}
+	va_end(pat_list);
+}
 /*
 void print_row(const uint8_t row)
 {
