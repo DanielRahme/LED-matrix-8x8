@@ -35,6 +35,16 @@ void row_sw_off()
 	}
 }
 
+struct Pattern inv_pat(const struct Pattern p)
+{
+	struct Pattern p_inv;
+	p_inv.delay = 1;
+	for (int i = 0; i < ROWS; i++) {
+		p_inv.pattern[i] = ~p.pattern[i];
+	}
+	return p_inv;
+}
+
 void row_scroll_down(const uint8_t row, const uint32_t delay_ms)
 {
 	write_row(row);
@@ -54,7 +64,6 @@ void row_scroll_up(const uint8_t row, const uint32_t delay_ms)
 		HAL_Delay(delay_ms);
 		row_sw_off();
 	}
-
 }
 
 void col_scroll_right(const uint32_t delay_ms)
@@ -88,16 +97,20 @@ void blink(const uint32_t delay)
 }
 
 
-void disp_pattern(const struct Pattern p)
+void pattern(const struct Pattern p)
 {
 	for (int i = 0; i < ROWS; i++) {
 		HAL_GPIO_WritePin(row_ports[i], row_pins[i], 0);
-		for (int j = 0; j < COLS; j++) {
-			bool state = (p.pattern[i] >> 7-j) & 0x1;
-			HAL_GPIO_WritePin(col_ports[j], col_pins[j], state);
-		}
+		write_row(p.pattern[i]);
 		HAL_Delay(p.delay);
 		leds_off();
+	}
+}
+
+void disp_pattern(const struct Pattern p, const uint32_t duration)
+{
+	for (int i = 0; i < duration; i++) {
+		pattern(p);
 	}
 }
 

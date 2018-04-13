@@ -11,15 +11,16 @@
 //#include "animations.h"
 
 
-void write_row(const uint8_t row);
+struct Pattern inv_pat(const struct Pattern p);
 void leds_off();
 void leds_on();
+struct Pattern inv_pat(const struct Pattern p);
 void row_scroll_down(const uint8_t row, const uint32_t delay_ms);
 void row_scroll_up(const uint8_t row, const uint32_t delay_ms);
 void col_scroll_right(const uint32_t delay_ms);
 void col_scroll_left(const uint32_t delay_ms);
 void blink(const uint32_t delay);
-void disp_pattern(const struct Pattern p);
+void disp_pattern(const struct Pattern p, const uint32_t duration);
 //void print_pattern(const struct Pattern p);
 
 
