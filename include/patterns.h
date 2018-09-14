@@ -1,9 +1,10 @@
 #ifndef PATTERNS_H
 #define PATTERNS_H
 
-#include "main.h"
+//#include "main.h"
 #include <stdlib.h>
-#include "gpio.h"
+#include <stdint.h>
+//#include "gpio.h"
 #include "led.h"
 
 struct Pattern {
