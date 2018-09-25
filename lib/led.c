@@ -4,12 +4,9 @@
 #define ROWS 8 //change to 8 when matrix hw is done
 #define COLS 8
 
-uint8_t write_pin(uint8_t pin, uint8_t is_on)
+uint8_t write_pin(uint8_t pin, uint8_t led_on)
 {
-        if (is_on)
-                printf("X ");
-        else
-                printf(". ");
+        printf(led_on ? " #" : " .");
 
         return pin;
 }
@@ -20,6 +17,34 @@ void write_row(const uint8_t row)
 		int state = row & (1 << (COLS - 1 - i));
 		write_pin(col_pins[i], state);
 	}
+}
+
+// Print row to the console. Used for
+// simulation purposes.
+void print_row(const uint8_t row)
+{
+	if (row == 0x00) {
+		printf(". . . . . . . .\n");
+		return;
+	}
+
+
+	for (int i = 0; i < ROWS; i++) {	
+		uint8_t enable = (row >> (7-i)) & 0x1;
+		printf(enable ? "   #" : "   .");
+	}
+        printf("\n");
+}
+
+// Print pattern to the console. Used for
+// simulation purposes.
+void print_pattern(const struct Pattern p)
+{
+	for (int i = 0; i < ROWS; i++) {
+		print_row(p.pattern[i]);
+		printf("\n");
+	}
+        printf("\n");
 }
 
 void leds_off()

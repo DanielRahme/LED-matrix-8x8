@@ -15,8 +15,10 @@
 
 struct Pattern inv_pat(const struct Pattern p);
 
+void print_row(const uint8_t row);
 void leds_off();
 void leds_on();
+void print_pattern(const struct Pattern p);
 struct Pattern inv_pat(const struct Pattern p);
 void row_scroll_down(const uint8_t row);
 void row_scroll_up(const uint8_t row);
