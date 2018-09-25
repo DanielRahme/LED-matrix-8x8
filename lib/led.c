@@ -1,5 +1,4 @@
 #include "led.h"
-#include <stdio.h>
 
 #define ROWS 8 //change to 8 when matrix hw is done
 #define COLS 8
@@ -38,7 +37,7 @@ void print_row(const uint8_t row)
 
 // Print pattern to the console. Used for
 // simulation purposes.
-void print_pattern(const struct Pattern p)
+void print_pattern(const pattern_t p)
 {
 	for (int i = 0; i < ROWS; i++) {
 		print_row(p.pattern[i]);
@@ -71,9 +70,9 @@ void row_sw_off()
 	}
 }
 
-struct Pattern inv_pat(const struct Pattern p)
+pattern_t inv_pat(const pattern_t p)
 {
-	struct Pattern p_inv;
+	pattern_t p_inv;
 	p_inv.delay = 1;
 	for (int i = 0; i < ROWS; i++) {
 		p_inv.pattern[i] = ~p.pattern[i];
@@ -133,7 +132,7 @@ void blink()
 }
 
 
-void pattern(const struct Pattern p)
+void pattern(const pattern_t p)
 {
 	for (int i = 0; i < ROWS; i++) {
 		write_pin(row_pins[i], 0);
@@ -143,7 +142,7 @@ void pattern(const struct Pattern p)
 	}
 }
 
-void disp_pattern(const struct Pattern p, const uint32_t duration)
+void disp_pattern(const pattern_t p, const uint32_t duration)
 {
 	for (uint32_t i = 0; i < duration; i++) {
 		pattern(p);
@@ -156,7 +155,7 @@ void arg_animate(uint16_t num_of_patterns, ...)
 	va_start(pat_list, num_of_patterns);
 
 	for (uint16_t i = 0; i < num_of_patterns; i++) {
-		struct Pattern p = va_arg(pat_list, struct Pattern);
+		pattern_t p = va_arg(pat_list, pattern_t);
 		disp_pattern(p, 10);
 	}
 	va_end(pat_list);
@@ -177,7 +176,7 @@ void print_row(const uint8_t row)
 }
 
 
-void print_pattern(const struct Pattern p)
+void print_pattern(const pattern_t p)
 {
 	for (int i = 0; i < ROWS; i++) {
 		print_row(p.pattern[i]);

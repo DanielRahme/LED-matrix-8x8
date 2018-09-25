@@ -8,7 +8,7 @@
 void construct_anim(struct Animation *a, const int length)
 {
         a->length = length;
-        a->patterns = (struct Pattern *)malloc(sizeof(struct Pattern) * length);
+        a->patterns = (pattern_t *)malloc(sizeof(pattern_t) * length);
 }
 
 void destruct_anim(struct Animation *a)
@@ -18,7 +18,7 @@ void destruct_anim(struct Animation *a)
 }
 
 
-void add_animation(struct Animation *a, struct Pattern *pat[])
+void add_animation(struct Animation *a, pattern_t *pat[])
 {
         for (int i = 0; i < a->length; i++) 
                 a->patterns[i] = *pat[i];    
@@ -38,7 +38,7 @@ void disp_animation(struct Animation a, const int loops)
 
 
 
-void animate(struct Pattern *pats[], const int length, const int loops)
+void animate(pattern_t *pats[], const int length, const int loops)
 {
 	struct Animation anim;
 	construct_anim(&anim, length);
@@ -49,12 +49,12 @@ void animate(struct Pattern *pats[], const int length, const int loops)
 
 
 /********* Animations ****************/
-/*const struct Pattern *anim_1[2] = {&pat1, &pat2};
-const struct Pattern *anim_cw_sqr[4] = {&pat3a, &pat3b, &pat3c, &pat3d};
-const struct Pattern *anim_ccw_sqr[4] = {&pat3d, &pat3c, &pat3b, &pat3a};
-const struct Pattern *anim_cw_sqr_inv[4] = {&pat3a_inv, &pat3b_inv, &pat3c_inv, &pat3d_inv};
+/*const pattern_t *anim_1[2] = {&pat1, &pat2};
+const pattern_t *anim_cw_sqr[4] = {&pat3a, &pat3b, &pat3c, &pat3d};
+const pattern_t *anim_ccw_sqr[4] = {&pat3d, &pat3c, &pat3b, &pat3a};
+const pattern_t *anim_cw_sqr_inv[4] = {&pat3a_inv, &pat3b_inv, &pat3c_inv, &pat3d_inv};
 
-const struct Pattern *anim_half[1] = {&pat_low_half};
+const pattern_t *anim_half[1] = {&pat_low_half};
 */
 
 

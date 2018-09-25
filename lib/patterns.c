@@ -2,7 +2,7 @@
 #include "patterns.h"
 
 
-const struct Pattern pat_clear = {
+const pattern_t pat_clear = {
 	.delay = 1,
 	.pattern = {
 		0,
@@ -15,7 +15,7 @@ const struct Pattern pat_clear = {
 		0}
 };
 
-const struct Pattern pat_smile_1 = {
+const pattern_t pat_smile_1 = {
 	.delay = 1,
 	.pattern = {
 		0x00,
@@ -28,7 +28,7 @@ const struct Pattern pat_smile_1 = {
 		0x3c}
 };
 
-const struct Pattern pat_smile_2 = {
+const pattern_t pat_smile_2 = {
 	.delay = 1,
 	.pattern = {
 		0x00,
@@ -41,7 +41,7 @@ const struct Pattern pat_smile_2 = {
 		0x3c}
 };
 
-const struct Pattern pat_smile_3 = {
+const pattern_t pat_smile_3 = {
 	.delay = 1,
 	.pattern = {
 		0xa2,
@@ -54,7 +54,7 @@ const struct Pattern pat_smile_3 = {
 		0x3c}
 };
 
-const struct Pattern pat_pi = {
+const pattern_t pat_pi = {
 	.delay = 1,
 	.pattern = {
 		0x00,
@@ -67,14 +67,14 @@ const struct Pattern pat_pi = {
 		0x21}
 };
 
-const struct Pattern pat_dance_1a = {
+const pattern_t pat_dance_1a = {
 	.delay = 1,
 	.pattern = {
 		0x18,0x39,0xA,0x1C,0x28,0x48,0x14,0x22
 	}
 };
 
-const struct Pattern pat_dance_1b = {
+const pattern_t pat_dance_1b = {
 	.delay = 1,
 	.pattern = {
 		0xC,0x4E,0x28,0x1C,0xA,0x9,0x14,0x22
@@ -83,28 +83,28 @@ const struct Pattern pat_dance_1b = {
 
 
 
-const struct Pattern pat_square_1a = {
+const pattern_t pat_square_1a = {
 	.delay = 1,
 	.pattern = {
 		0xFF,0x81,0x81,0x81,0x81,0x81,0x81,0xFF
 	}
 };
 
-const struct Pattern pat_square_1b = {
+const pattern_t pat_square_1b = {
 	.delay = 1,
 	.pattern = {
 		0x0,0x7E,0x42,0x42,0x42,0x42,0x7E,0x0
 	}
 };
 
-const struct Pattern pat_square_1c = {
+const pattern_t pat_square_1c = {
 	.delay = 1,
 	.pattern = {
 		0x0,0x0,0x3C,0x24,0x24,0x3C,0x0,0x0
 	}
 };
 
-const struct Pattern pat_square_1d = {
+const pattern_t pat_square_1d = {
 	.delay = 1,
 	.pattern = {
 		0x0,0x0,0x0,0x18,0x18,0x0,0x0,0x0
