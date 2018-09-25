@@ -1,5 +1,5 @@
-#ifndef LED_TYPES
-#define LED_TYPES
+#ifndef LED_TYPES_H
+#define LED_TYPES_H
 
 #include <stdint.h>
 #include <stdbool.h>

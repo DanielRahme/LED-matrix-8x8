@@ -4,6 +4,7 @@ add_library(led
             led.c
             led_hw.c
             patterns.c
+            geometry.c
 )
 
 target_include_directories(led PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/../include")

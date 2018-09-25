@@ -1,7 +1,5 @@
 #include "led.h"
 
-#define ROWS 8 //change to 8 when matrix hw is done
-#define COLS 8
 
 uint8_t write_pin(uint8_t pin, uint8_t led_on)
 {
@@ -23,7 +21,7 @@ void write_row(const uint8_t row)
 void print_row(const uint8_t row)
 {
 	if (row == 0x00) {
-		printf(". . . . . . . .\n");
+		printf("   .   .   .   .   .   .   .   .\n");
 		return;
 	}
 

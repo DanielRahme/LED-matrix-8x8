@@ -1,12 +1,15 @@
-#ifndef led_h
-#define led_h
+#ifndef LED_H
+#define LED_H
 
 #include <stdarg.h>
 #include <stdio.h>
 #include "led_hw.h"
 #include "patterns.h"
 #include "led_types.h"
+#include "geometry.h"
 
+#define ROWS 8 //change to 8 when matrix hw is done
+#define COLS 8
 
 pattern_t inv_pat(const pattern_t p);
 
