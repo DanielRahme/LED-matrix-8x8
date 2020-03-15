@@ -52,43 +52,8 @@
 *.ewt
 
 
-
 # Kernel Module Compile Results
 *.mod*
 *.cmd
-.tmp_versions/
-modules.order
-Module.symvers
-Mkfile.old
-dkms.conf
 
-/Led_matrix/EWARM/
-/Led_matrix/Drivers/
-/Led_matrix/EWARM/settings/
-
-Led_matrix/EWARM/
-Led_matrix/Drivers/
-Led_matrix/EWARM/settings/
-
-Led_matrix/Drivers/CMSIS/Device/ST/STM32F3xx/Include/stm32f3xx.h
-Led_matrix/EWARM/Led_matrix.dep
-Led_matrix/EWARM/Led_matrix/Obj/Led_matrix.pbd
-Led_matrix/EWARM/Led_matrix/Obj/Led_matrix.pbd.browse
-Led_matrix/EWARM/Led_matrix/Obj/Led_matrix.pbd.linf
-Led_matrix/EWARM/Project.eww
-Led_matrix/EWARM/settings/Led_matrix.Led_matrix.cspy.bat
-Led_matrix/EWARM/settings/Led_matrix.Led_matrix.general.xcl
-Led_matrix/EWARM/settings/Led_matrix.dbgdt
-Led_matrix/EWARM/settings/Led_matrix.dni
-Led_matrix/EWARM/settings/Project.wsdt
-Led_matrix/EWARM/settings/Project.wspos
-
-Led_matrix/Test/Debug/
-/Led_matrix/Test/Debug/
-Led_matrix/Test/settings/
-
-*/Debug/*
-
-.vscode/
-
-build/
+main
