@@ -57,3 +57,14 @@
 *.cmd
 
 main
+
+#STM folders and files
+Debug
+Drivers
+*.ld
+*.launch
+.cproject
+.mxproject
+.settings
+.project
+Core/Startup
