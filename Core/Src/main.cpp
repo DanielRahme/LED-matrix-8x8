@@ -27,6 +27,7 @@
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
 #include "gpio.h"
+#include "io.hpp"
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
@@ -60,28 +61,6 @@ void SystemClock_Config(void);
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
-void leds_reset()
-{
-  // Colums are active high. Init colums low (inactive)
-  HAL_GPIO_WritePin(COL_1_GPIO_Port, COL_1_Pin, GPIO_PIN_RESET);
-  HAL_GPIO_WritePin(COL_2_GPIO_Port, COL_2_Pin, GPIO_PIN_RESET);
-  HAL_GPIO_WritePin(COL_3_GPIO_Port, COL_3_Pin, GPIO_PIN_RESET);
-  HAL_GPIO_WritePin(COL_4_GPIO_Port, COL_4_Pin, GPIO_PIN_RESET);
-  HAL_GPIO_WritePin(COL_5_GPIO_Port, COL_5_Pin, GPIO_PIN_RESET);
-  HAL_GPIO_WritePin(COL_6_GPIO_Port, COL_6_Pin, GPIO_PIN_RESET);
-  HAL_GPIO_WritePin(COL_7_GPIO_Port, COL_7_Pin, GPIO_PIN_RESET);
-  HAL_GPIO_WritePin(COL_8_GPIO_Port, COL_8_Pin, GPIO_PIN_RESET);
-
-  // Rows are active low. Init rows high (inactive)
-  HAL_GPIO_WritePin(ROW_1_GPIO_Port, ROW_1_Pin, GPIO_PIN_SET);
-  HAL_GPIO_WritePin(ROW_2_GPIO_Port, ROW_2_Pin, GPIO_PIN_SET);
-  HAL_GPIO_WritePin(ROW_3_GPIO_Port, ROW_3_Pin, GPIO_PIN_SET);
-  HAL_GPIO_WritePin(ROW_4_GPIO_Port, ROW_4_Pin, GPIO_PIN_SET);
-  HAL_GPIO_WritePin(ROW_5_GPIO_Port, ROW_5_Pin, GPIO_PIN_SET);
-  HAL_GPIO_WritePin(ROW_6_GPIO_Port, ROW_6_Pin, GPIO_PIN_SET);
-  HAL_GPIO_WritePin(ROW_7_GPIO_Port, ROW_7_Pin, GPIO_PIN_SET);
-  HAL_GPIO_WritePin(ROW_8_GPIO_Port, ROW_8_Pin, GPIO_PIN_SET);
-}
 /* USER CODE BEGIN 0 */
 
 /* USER CODE END 0 */
@@ -115,9 +94,13 @@ int main(void)
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
   /* USER CODE BEGIN 2 */
-  leds_reset();
-  HAL_GPIO_WritePin(COL_1_GPIO_Port, COL_1_Pin, GPIO_PIN_SET);
-  HAL_GPIO_WritePin(ROW_1_GPIO_Port, ROW_1_Pin, GPIO_PIN_RESET);
+  io::write_pin(io::Pin::C_1, HIGH);
+  io::write_pin(io::Pin::C_2, HIGH);
+  io::write_pin(io::Pin::C_6, HIGH);
+  io::write_pin(io::Pin::C_7, HIGH);
+  io::write_pin(io::Pin::C_8, HIGH);
+
+  io::write_pin(io::Pin::R_1, LOW);
 
 
 
