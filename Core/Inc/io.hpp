@@ -30,6 +30,10 @@ public:
 
     // Functions
     static void write_pin(pin p, state value);
+    static void set_pin(pin p);
+    static void reset_pin(pin p);
+    static void write_row(pin row, unsigned char value);
+    static void pins_default();
 };
 
 #endif

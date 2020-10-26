@@ -13,19 +13,22 @@
 
 void SystemClock_Config();
 
+void iterate_leds_in_row()
+{
+  for (int i = 0; i < 8; i++) {
+    io::write_row(io::R_1, 1 << i);
+    HAL_Delay(500);
+  }
+}
+
 int main()
 {
   HAL_Init();
   SystemClock_Config();
   MX_GPIO_Init();
-
-  io::write_pin(io::Pin::C_1, HIGH);
-  io::write_pin(io::Pin::C_2, HIGH);
-  io::write_pin(io::Pin::C_6, HIGH);
-  io::write_pin(io::Pin::C_7, HIGH);
-  io::write_pin(io::Pin::C_8, HIGH);
-
-  io::write_pin(io::Pin::R_1, LOW);
+  
+  io::pins_default();
+  iterate_leds_in_row();
 
   while (1)
   {
