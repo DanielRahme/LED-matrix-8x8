@@ -9,35 +9,65 @@
   */
 #include "main.h"
 #include "gpio.h"
+#include "cmsis_os.h"
+#include "FreeRTOS.h"
+#include "task.h"
 #include "io.hpp"
+#include "freertos.hpp"
+
+
 
 void SystemClock_Config();
+void toggle_led_func(void *argument);
+
 
 void iterate_leds_in_row(io::pin row)
 {
   for (int i = 0; i < 8; i++) {
     io::write_row(row, 1 << i);
-    HAL_Delay(200);
+    HAL_Delay(50);
   }
 }
 
-void led_by_led()
+void led_by_led(void* arg = nullptr)
 {
-  for (int row_num = 0; row_num < 8; row_num++) {
-    iterate_leds_in_row(static_cast<io::pin>(row_num));
-    io::pins_default();
-  }
+    for (;;) {
+        for (int row_num = 0; row_num < 8; row_num++) {
+            iterate_leds_in_row(static_cast<io::pin>(row_num));
+            io::pins_default();
+        }
+        osThreadTerminate(NULL);
+    };
 }
+
+auto init_rtos = [](){
+  osKernelInitialize();
+  //MX_FREERTOS_Init();
+  //task_toggle_ledHandle = osThreadNew(toggle_led_func, NULL, &task_toggle_led_attributes);
+  osThreadAttr_t attributes = {};
+  attributes.name = "defaultTask";
+  attributes.priority = (osPriority_t)osPriorityNormal;
+  attributes.stack_size = 512;
+  osThreadNew(led_by_led, NULL, &attributes);
+
+  osKernelStart();
+};
+
+
+auto init = [](){
+};
 
 int main()
 {
   HAL_Init();
   SystemClock_Config();
   MX_GPIO_Init();
-  
   io::pins_default();
-  //iterate_leds_in_row();
-  led_by_led();
+
+  init_rtos();
+
+  //led_by_led();
+
 
   while (1)
   {
@@ -52,15 +82,13 @@ void SystemClock_Config(void)
 {
   RCC_OscInitTypeDef RCC_OscInitStruct = {0};
   RCC_ClkInitTypeDef RCC_ClkInitStruct = {0};
-  RCC_PeriphCLKInitTypeDef PeriphClkInit = {0};
 
   /** Initializes the CPU, AHB and APB busses clocks
   */
-  RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSI|RCC_OSCILLATORTYPE_HSE;
+  RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSE;
   RCC_OscInitStruct.HSEState = RCC_HSE_ON;
   RCC_OscInitStruct.HSEPredivValue = RCC_HSE_PREDIV_DIV1;
   RCC_OscInitStruct.HSIState = RCC_HSI_ON;
-  RCC_OscInitStruct.HSICalibrationValue = RCC_HSICALIBRATION_DEFAULT;
   RCC_OscInitStruct.PLL.PLLState = RCC_PLL_ON;
   RCC_OscInitStruct.PLL.PLLSource = RCC_PLLSOURCE_HSE;
   RCC_OscInitStruct.PLL.PLLMUL = RCC_PLL_MUL9;
@@ -81,14 +109,33 @@ void SystemClock_Config(void)
   {
     Error_Handler();
   }
-  PeriphClkInit.PeriphClockSelection = RCC_PERIPHCLK_USB|RCC_PERIPHCLK_I2C1;
-  PeriphClkInit.I2c1ClockSelection = RCC_I2C1CLKSOURCE_HSI;
-  PeriphClkInit.USBClockSelection = RCC_USBCLKSOURCE_PLL_DIV1_5;
-  if (HAL_RCCEx_PeriphCLKConfig(&PeriphClkInit) != HAL_OK)
-  {
-    Error_Handler();
-  }
 }
+
+/* USER CODE BEGIN 4 */
+
+/* USER CODE END 4 */
+
+ /**
+  * @brief  Period elapsed callback in non blocking mode
+  * @note   This function is called  when TIM6 interrupt took place, inside
+  * HAL_TIM_IRQHandler(). It makes a direct call to HAL_IncTick() to increment
+  * a global variable "uwTick" used as application time base.
+  * @param  htim : TIM handle
+  * @retval None
+  */
+void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
+{
+  /* USER CODE BEGIN Callback 0 */
+
+  /* USER CODE END Callback 0 */
+  if (htim->Instance == TIM6) {
+    HAL_IncTick();
+  }
+  /* USER CODE BEGIN Callback 1 */
+
+  /* USER CODE END Callback 1 */
+}
+
 
 
 void Error_Handler(void)
