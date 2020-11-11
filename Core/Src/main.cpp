@@ -7,46 +7,92 @@
   * ROWS (active LOW)     : Pins = <PC0 - PC8>
   ******************************************************************************
   */
+
+#define ETL_COMPILER_IAR
+
 #include "main.h"
 #include "gpio.h"
 #include "cmsis_os.h"
-#include "FreeRTOS.h"
+#include "cmsis_os2.h"
+//#include "FreeRTOS.h"
 #include "task.h"
 #include "io.hpp"
-#include "freertos.hpp"
+#include "etl/array.h"
+//#include "freertos.hpp"
 
 void SystemClock_Config();
 
-void led_by_led(void* arg = nullptr) {
-  for (;;) {
+osTimerId thread_led_all = nullptr;  // timer id
+osTimerId thread_rows = nullptr;  // timer id
+osTimerId thread_scroll_right = nullptr;  // timer id
+
+static const auto TIME_ROWS = 4000;
+static const auto TIME_SCROLL_RIGHT = 8000;
+static const auto TIME_LED_ALL = 1000;
+
+
+auto pixels_check = [](){
     for (int row_num = 0; row_num < 8; row_num++) {
       io::pins_default();
-
       for (int i = 0; i < 8; i++) {
         io::write_row(static_cast<io::pin>(row_num), 1 << i);
         osDelay(50);
       }
     }
-    osThreadYield();
-    osDelay(1000);
-  };
-  osThreadTerminate(NULL);
-}
+};
 
-void led_scroll_down(void* arg = nullptr) {
-  for (;;) {
+auto scroll_down_rows = [](auto line, auto delay){
     for (int i = 0; i < 8; i++) {
       io::pins_default();
 
       auto row_num = static_cast<io::pin>(i);
-      io::write_row(row_num, 0xff);
-      osDelay(50);
+      io::write_row(row_num, line);
+      osDelay(delay);
     }
+};
 
+
+void callback_led_all(void *arg){
+  pixels_check();
+  osTimerStart(thread_led_all, TIME_LED_ALL);
+  // osTimerStop(thread_led_all);
+  osThreadYield();
+}
+
+void callback_rows(void *arg){
+  scroll_down_rows(0xff, 50);
+  osTimerStart(thread_rows, TIME_ROWS);
+  osThreadYield();
+}
+
+void callback_scroll_right(void *arg){
+  for (int i = 0; i < 8; i++) {
+    scroll_down_rows(1 << i, 10);
+  }
+    osTimerStart(thread_rows, TIME_SCROLL_RIGHT);  
     osThreadYield();
-    osDelay(2000);
-  };
-  osThreadTerminate(NULL);
+}
+
+void create_periodic_thread() {
+  uint32_t exec1 = 1;  // argument for the timer call back function
+  uint32_t exec2 = 2;  // argument for the timer call back function
+
+
+  thread_led_all = osTimerNew(callback_led_all, osTimerPeriodic, &exec1, NULL);
+  if (thread_led_all != NULL) {  // One-shoot timer created
+  }
+
+  thread_rows = osTimerNew(callback_rows, osTimerPeriodic, &exec2, NULL);
+  if (thread_rows != NULL) {  // Periodic timer created
+  }
+
+  thread_scroll_right = osTimerNew(callback_scroll_right, osTimerPeriodic, nullptr, NULL);
+  if (thread_scroll_right != NULL) {
+  }
+
+  osTimerStart(thread_led_all, 500);  // start timer
+  osTimerStart(thread_rows, 1000);  // start timer
+  osTimerStart(thread_scroll_right, 1500);  // start timer
 }
 
 auto task_attribute = [](const auto name, const auto priority,
@@ -72,10 +118,15 @@ int main() {
   // init Rtos
   osKernelInitialize();
 
-  create_thread(led_by_led, static_cast<osPriority_t>(30));
-  create_thread(led_scroll_down, static_cast<osPriority_t>(30));
+  //create_thread(led_by_led, static_cast<osPriority_t>(30));
+  //create_thread(led_scroll_down, static_cast<osPriority_t>(30));
+  create_periodic_thread();
 
   osKernelStart();
+
+  
+  osThreadTerminate(NULL);
+
 
   while (1) {
     /* USER CODE END WHILE */
