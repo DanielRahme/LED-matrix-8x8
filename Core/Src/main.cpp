@@ -26,16 +26,16 @@ osTimerId thread_led_all = nullptr;  // timer id
 osTimerId thread_rows = nullptr;  // timer id
 osTimerId thread_scroll_right = nullptr;  // timer id
 
-static const auto TIME_ROWS = 4000;
-static const auto TIME_SCROLL_RIGHT = 8000;
-static const auto TIME_LED_ALL = 1000;
+static constexpr auto TIME_ROWS = 4000;
+static constexpr auto TIME_SCROLL_RIGHT = 2000;
+static constexpr auto TIME_LED_ALL = 4000;
 
 
 auto pixels_check = [](){
     for (int row_num = 0; row_num < 8; row_num++) {
       io::pins_default();
       for (int i = 0; i < 8; i++) {
-        io::write_row(static_cast<io::pin>(row_num), 1 << i);
+        io::write_row(row_num, 1 << i);
         osDelay(50);
       }
     }
@@ -45,8 +45,7 @@ auto scroll_down_rows = [](auto line, auto delay){
     for (int i = 0; i < 8; i++) {
       io::pins_default();
 
-      auto row_num = static_cast<io::pin>(i);
-      io::write_row(row_num, line);
+      io::write_row(i, line);
       osDelay(delay);
     }
 };
