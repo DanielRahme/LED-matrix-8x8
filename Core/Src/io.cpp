@@ -5,8 +5,15 @@
 
 //#include "stm32f303xc.h"
 
-typedef io::pin_t<decltype(ROW_1_GPIO_Port)>
-    pin;  // Define pin. Use the port type here
+ template <typename Port>
+ struct pin_t {
+   // GPIO_TypeDef* port;
+   Port port;
+   int pin_num;
+ };
+
+using pin = pin_t<decltype(ROW_1_GPIO_Port)>;  // Define pin. Use the port type here
+
 
 // Constants pins
 constexpr pin R1 = {ROW_1_GPIO_Port, ROW_1_Pin};
@@ -69,3 +76,4 @@ void io::pins_default() {
     reset_pin(c);
   }
 }
+

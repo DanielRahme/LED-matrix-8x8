@@ -68,3 +68,5 @@ Drivers
 .settings
 .project
 Core/Startup
+
+*.zip
