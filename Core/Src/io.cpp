@@ -5,10 +5,10 @@
 
 //#include "stm32f303xc.h"
 
-typedef io::pin_t<decltype(ROW_1_GPIO_Port)> pin;
+typedef io::pin_t<decltype(ROW_1_GPIO_Port)>
+    pin;  // Define pin. Use the port type here
 
-
-// Constants PINS
+// Constants pins
 constexpr pin R1 = {ROW_1_GPIO_Port, ROW_1_Pin};
 constexpr pin R2 = {ROW_2_GPIO_Port, ROW_2_Pin};
 constexpr pin R3 = {ROW_3_GPIO_Port, ROW_3_Pin};
@@ -26,56 +26,46 @@ constexpr pin C6 = {COL_6_GPIO_Port, COL_6_Pin};
 constexpr pin C7 = {COL_7_GPIO_Port, COL_7_Pin};
 constexpr pin C8 = {COL_8_GPIO_Port, COL_8_Pin};
 
-//constexpr pin pins[16] = { R1, R2, R3, R4, R5, R6, R7, R8, C1, C2, C3, C4, C5, C6, C7, C8 };
-constexpr etl::array<pin, 8> pins_rows = {R1, R2, R3, R4, R5, R6, R7, R8}; 
-constexpr etl::array<pin, 8> pins_colums = {C1, C2, C3, C4, C5, C6, C7, C8}; 
+constexpr etl::array<pin, 8> pins_rows = {R1, R2, R3, R4, R5, R6, R7, R8};
+constexpr etl::array<pin, 8> pins_colums = {C1, C2, C3, C4, C5, C6, C7, C8};
 
-
-void set_pin(const pin p)
-{
-    HAL_GPIO_WritePin(p.port, p.pin_num, GPIO_PIN_SET);
+void set_pin(const pin p) {
+  HAL_GPIO_WritePin(p.port, p.pin_num, GPIO_PIN_SET);
 }
 
-void reset_pin(const pin p)
-{
-    HAL_GPIO_WritePin(p.port, p.pin_num, GPIO_PIN_RESET);
+void reset_pin(const pin p) {
+  HAL_GPIO_WritePin(p.port, p.pin_num, GPIO_PIN_RESET);
 }
 
+void write_pin(const pin p, int value) {
+  HAL_GPIO_WritePin(p.port, p.pin_num, static_cast<decltype(GPIO_PIN_RESET)>(value));
+}
 
 ////////////////////////////////////////////////////////////////////////////////
 // Public funtions
 ////////////////////////////////////////////////////////////////////////////////
-void io::write_row(int row, unsigned char value)
-{
-    // Boundry check, do with definition
-    if (row < 0 || row > io::max_row) return;
+void io::write_row(int row, unsigned char value) {
 
-    // Write colums. Start from MSB column
-    int current_column = 7;
-    while (value) {
-        if (value & 1) {
-            set_pin(pins_colums.at(current_column));
-        }
-        else {
-            reset_pin(pins_colums.at(current_column));
-        }
-        value >>= 1;
-        current_column--;
-    }
+  if (row < 0 || row > io::max_row) return;  // Boundry check, do with definition
 
-    // Enable row
-    reset_pin(pins_rows.at(row));
+  // Write to colums starting from leftmost one (MSB)
+  for (auto col : pins_colums) {
+    write_pin(col, value & 0b1000'0000);
+    value <<= 1;
+  }
+
+  // Enable row
+  reset_pin(pins_rows.at(row));
 }
 
-
 // Turn off all LEDs
-void io::pins_default()
-{
-    for (auto r : pins_rows) {
-        set_pin(r);
-    }
+void io::pins_default() {
+  // Active low led pin, disable with high
+  for (auto r : pins_rows) {
+    set_pin(r);
+  }
 
-    for (auto c : pins_colums) {
-        reset_pin(c);
-    }
+  for (auto c : pins_colums) {
+    reset_pin(c);
+  }
 }
