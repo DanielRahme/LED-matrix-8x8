@@ -9,22 +9,22 @@ namespace io
 namespace pins {
 
 template<typename PortType>
-void pin_t<PortType>::set() {
-  HAL_GPIO_WritePin(pin_t::port, pin_t::pin_num, GPIO_PIN_SET);
+void Pin<PortType>::set() {
+  HAL_GPIO_WritePin(Pin::port, Pin::pin_num, GPIO_PIN_SET);
 }
 
 template<typename PortType>
-void pin_t<PortType>::reset() {
-  HAL_GPIO_WritePin(pin_t::port, pin_t::pin_num, GPIO_PIN_RESET);
+void Pin<PortType>::reset() {
+  HAL_GPIO_WritePin(Pin::port, Pin::pin_num, GPIO_PIN_RESET);
 }
 
 template<typename PortType>
-void pin_t<PortType>::write(int value) {
+void Pin<PortType>::write(int value) {
   auto bit_value = (value ? GPIO_PIN_SET : GPIO_PIN_RESET);
-  HAL_GPIO_WritePin(pin_t::port, pin_t::pin_num, bit_value);
+  HAL_GPIO_WritePin(Pin::port, Pin::pin_num, bit_value);
 }
 
-using pin = io::pins::pin_t<>;
+using pin = io::pins::Pin<>;
 constexpr pin R1 = {ROW_1_GPIO_Port, ROW_1_Pin};
 constexpr pin R2 = {ROW_2_GPIO_Port, ROW_2_Pin};
 constexpr pin R3 = {ROW_3_GPIO_Port, ROW_3_Pin};

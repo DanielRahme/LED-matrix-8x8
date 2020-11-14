@@ -17,7 +17,7 @@ namespace io {
     
     // ROW_1_GPIO_port of type = GPIO_TypeDef* port;
     template <typename PortType = decltype(ROW_1_GPIO_Port)>
-    struct pin_t {
+    struct Pin {
       PortType port;
       int pin_num;
 
