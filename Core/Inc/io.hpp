@@ -13,13 +13,17 @@ namespace io {
   void pins_default();
 
   namespace pins
-  {                        
-    
+  {
     // ROW_1_GPIO_port of type = GPIO_TypeDef* port;
     template <typename PortType = decltype(ROW_1_GPIO_Port)>
     struct Pin {
-      PortType port;
-      int pin_num;
+      PortType port = nullptr;
+      int pin_num   = 0;
+
+      // Constructors
+      //Pin() : port(0), pin_num(0){};
+      constexpr Pin(PortType p, int n) : port(p), pin_num(n){};
+      constexpr Pin()=default;
 
       void set();
       void reset();
