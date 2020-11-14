@@ -3,17 +3,10 @@
 #include "main.h"
 #include "etl/array.h"
 
-//#include "stm32f303xc.h"
-
-// using pin = io:pin::pin_t<decltype(ROW_1_GPIO_Port)>;  // Define pin. Use the
-// port type here
-
 namespace io 
 {
 
 namespace pins {
-
-// using pin = io::pins::pin_t<decltype(ROW_1_GPIO_Port)>;
 
 template<typename PortType>
 void pin_t<PortType>::set() {
@@ -25,7 +18,13 @@ void pin_t<PortType>::reset() {
   HAL_GPIO_WritePin(pin_t::port, pin_t::pin_num, GPIO_PIN_RESET);
 }
 
-using pin = io::pins::pin_t<>;  // io::pins::pin_t<decltype(ROW_1_GPIO_Port)>;
+template<typename PortType>
+void pin_t<PortType>::write(int value) {
+  auto bit_value = (value ? GPIO_PIN_SET : GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(pin_t::port, pin_t::pin_num, bit_value);
+}
+
+using pin = io::pins::pin_t<>;
 constexpr pin R1 = {ROW_1_GPIO_Port, ROW_1_Pin};
 constexpr pin R2 = {ROW_2_GPIO_Port, ROW_2_Pin};
 constexpr pin R3 = {ROW_3_GPIO_Port, ROW_3_Pin};
@@ -45,22 +44,8 @@ constexpr pin C8 = {COL_8_GPIO_Port, COL_8_Pin};
 
 constexpr etl::array<pin, 8> pins_rows = {R1, R2, R3, R4, R5, R6, R7, R8};
 constexpr etl::array<pin, 8> pins_colums = {C1, C2, C3, C4, C5, C6, C7, C8};
+}  // End namespace pins
 
-
-}  // End namespace pinso
-
-void set_pin(const io::pins::pin p) {
-  HAL_GPIO_WritePin(p.port, p.pin_num, GPIO_PIN_SET);
-}
-
-void reset_pin(const io::pins::pin p) {
-  HAL_GPIO_WritePin(p.port, p.pin_num, GPIO_PIN_RESET);
-}
-
-void write_pin(const io::pins::pin p, int value) {
-  HAL_GPIO_WritePin(p.port, p.pin_num,
-                    static_cast<decltype(GPIO_PIN_RESET)>(value));
-}
 
 ////////////////////////////////////////////////////////////////////////////////
 // Public funtions
@@ -71,24 +56,24 @@ void write_row(int row, unsigned char value) {
 
   // Write to colums starting from leftmost one (MSB)
   for (auto col : io::pins::pins_colums) {
-    write_pin(col, value & 0b1000'0000);
+    col.write(value & 0b1000'0000);
     value <<= 1;
   }
 
   // Enable row
-  reset_pin(io::pins::pins_rows.at(row));
+  //reset_pin(io::pins::pins_rows.at(row));
+  auto row_enable = pins::pins_rows.at(row);
+  row_enable.reset();
 }
 
 // Turn off all LEDs
 void pins_default() {
   // Active low led pin, disable with high
   for (auto r : io::pins::pins_rows) {
-    // set_pin(r);
     r.set();
   }
 
   for (auto c : io::pins::pins_colums) {
-    // reset_pin(c);
     c.reset();
   }
 }
