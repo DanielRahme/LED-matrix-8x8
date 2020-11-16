@@ -3,13 +3,17 @@
 #include "main.h"
 #include "etl/array.h"
 
+#define GPIOA_BASE            (AHB2PERIPH_BASE + 0x00000000UL)
+#define GPIOB_BASE            (AHB2PERIPH_BASE + 0x00000400UL)
+#define GPIOC_BASE            (AHB2PERIPH_BASE + 0x00000800UL)
+
+
 namespace io 
 {
-
 // struct Pin methods and operators
 bool Pin::operator=(bool v) {
   auto bit_value = (v ? GPIO_PIN_SET : GPIO_PIN_RESET);
-  HAL_GPIO_WritePin(Pin::port, Pin::num, bit_value);
+  HAL_GPIO_WritePin((GPIO_TypeDef*)Pin::port, Pin::num, bit_value);
   return v;
 }
 
@@ -26,29 +30,29 @@ void Pin::reset() {
 }
 
 void Pin::toggle() {
-  HAL_GPIO_TogglePin(Pin::port, Pin::num);
+  HAL_GPIO_TogglePin((GPIO_TypeDef*)Pin::port, Pin::num);
 }
 
 // Constants of used GPIO Pins
-const auto R1 = Pin(ROW_1_GPIO_Port, ROW_1_Pin);
-const auto R2 = Pin(ROW_2_GPIO_Port, ROW_2_Pin);
-const auto R3 = Pin(ROW_3_GPIO_Port, ROW_3_Pin);
-const auto R4 = Pin(ROW_4_GPIO_Port, ROW_4_Pin);
-const auto R5 = Pin(ROW_5_GPIO_Port, ROW_5_Pin);
-const auto R6 = Pin(ROW_6_GPIO_Port, ROW_6_Pin);
-const auto R7 = Pin(ROW_7_GPIO_Port, ROW_7_Pin);
-const auto R8 = Pin(ROW_8_GPIO_Port, ROW_8_Pin);
-const auto C1 = Pin(COL_1_GPIO_Port, COL_1_Pin);
-const auto C2 = Pin(COL_2_GPIO_Port, COL_2_Pin);
-const auto C3 = Pin(COL_3_GPIO_Port, COL_3_Pin);
-const auto C4 = Pin(COL_4_GPIO_Port, COL_4_Pin);
-const auto C5 = Pin(COL_5_GPIO_Port, COL_5_Pin);
-const auto C6 = Pin(COL_6_GPIO_Port, COL_6_Pin);
-const auto C7 = Pin(COL_7_GPIO_Port, COL_7_Pin);
-const auto C8 = Pin(COL_8_GPIO_Port, COL_8_Pin);
+constexpr auto R1 = Pin(GPIOC_BASE, ROW_1_Pin);
+constexpr auto R2 = Pin(GPIOC_BASE, ROW_2_Pin);
+constexpr auto R3 = Pin(GPIOC_BASE, ROW_3_Pin);
+constexpr auto R4 = Pin(GPIOC_BASE, ROW_4_Pin);
+constexpr auto R5 = Pin(GPIOC_BASE, ROW_5_Pin);
+constexpr auto R6 = Pin(GPIOC_BASE, ROW_6_Pin);
+constexpr auto R7 = Pin(GPIOC_BASE, ROW_7_Pin);
+constexpr auto R8 = Pin(GPIOC_BASE, ROW_8_Pin);
+constexpr auto C1 = Pin(GPIOB_BASE, COL_1_Pin);
+constexpr auto C2 = Pin(GPIOB_BASE, COL_2_Pin);
+constexpr auto C3 = Pin(GPIOB_BASE, COL_3_Pin);
+constexpr auto C4 = Pin(GPIOB_BASE, COL_4_Pin);
+constexpr auto C5 = Pin(GPIOB_BASE, COL_5_Pin);
+constexpr auto C6 = Pin(GPIOB_BASE, COL_6_Pin);
+constexpr auto C7 = Pin(GPIOB_BASE, COL_7_Pin);
+constexpr auto C8 = Pin(GPIOB_BASE, COL_8_Pin);
 
-const etl::array<Pin, 8> pins_rows = {R1, R2, R3, R4, R5, R6, R7, R8};
-const etl::array<Pin, 8> pins_colums = {C1, C2, C3, C4, C5, C6, C7, C8};
+constexpr etl::array<Pin, 8> pins_rows = {R1, R2, R3, R4, R5, R6, R7, R8};
+constexpr etl::array<Pin, 8> pins_colums = {C1, C2, C3, C4, C5, C6, C7, C8};
 
 ////////////////////////////////////////////////////////////////////////////////
 // Public funtions

@@ -4,9 +4,10 @@
 #include "io.hpp"
 #include "main.h"
 
-namespace io {
+#define GPIOC_BASE 1u
+#define GPIOB_BASE 2u
 
-  using port_t = decltype(GPIOB);
+namespace io {
 
   // io constants
   static constexpr int max_column = 8;
@@ -17,7 +18,7 @@ namespace io {
 
     struct Pin {
 
-      constexpr Pin(port_t p = 0, uint16_t n = 0)
+      constexpr Pin(uint32_t p = 0, uint16_t n = 0)
                     : port(p), num(n){};
 
       bool operator=(bool v);
@@ -27,10 +28,9 @@ namespace io {
       void write(int value);
       void toggle();
 
-      port_t port = 0;
+      uint32_t port = 0;
       uint16_t num = 0;
     };
-
 }
 
 #endif
