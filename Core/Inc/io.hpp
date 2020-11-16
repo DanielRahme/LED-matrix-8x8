@@ -23,6 +23,8 @@ namespace io {
 
       bool operator=(bool v);
       bool operator=(int v);
+      explicit operator bool();
+
       void set();
       void reset();
       void write(int value);

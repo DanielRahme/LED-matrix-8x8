@@ -33,6 +33,11 @@ void Pin::toggle() {
   HAL_GPIO_TogglePin((GPIO_TypeDef*)Pin::port, Pin::num);
 }
 
+Pin::operator bool() {
+  const auto state = HAL_GPIO_ReadPin((GPIO_TypeDef *)port, num);
+  return state == GPIO_PIN_SET;
+}
+
 // Constants of used GPIO Pins
 constexpr auto R1 = Pin(GPIOC_BASE, ROW_1_Pin);
 constexpr auto R2 = Pin(GPIOC_BASE, ROW_2_Pin);
