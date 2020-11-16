@@ -6,7 +6,7 @@
 namespace io 
 {
 
-
+// struct Pin methods and operators
 bool Pin::operator=(bool v) {
   auto bit_value = (v ? GPIO_PIN_SET : GPIO_PIN_RESET);
   HAL_GPIO_WritePin(Pin::port, Pin::num, bit_value);
@@ -25,7 +25,11 @@ void Pin::reset() {
   *this = false;
 }
 
+void Pin::toggle() {
+  HAL_GPIO_TogglePin(Pin::port, Pin::num);
+}
 
+// Constants of used GPIO Pins
 const auto R1 = Pin(ROW_1_GPIO_Port, ROW_1_Pin);
 const auto R2 = Pin(ROW_2_GPIO_Port, ROW_2_Pin);
 const auto R3 = Pin(ROW_3_GPIO_Port, ROW_3_Pin);

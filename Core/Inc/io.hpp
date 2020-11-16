@@ -3,6 +3,7 @@
 
 #include "io.hpp"
 #include "main.h"
+
 namespace io {
 
   using port_t = decltype(GPIOB);
@@ -24,7 +25,7 @@ namespace io {
       void set();
       void reset();
       void write(int value);
-      //void toggle();
+      void toggle();
 
       port_t port = 0;
       uint16_t num = 0;
