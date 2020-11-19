@@ -17,6 +17,7 @@
 //#include "FreeRTOS.h"
 #include "task.h"
 #include "io.hpp"
+#include "matrix.hpp"
 #include "etl/array.h"
 //#include "freertos.hpp"
 
@@ -28,15 +29,16 @@ osTimerId thread_scroll_right = nullptr;  // timer id
 
 static constexpr auto TIME_ROWS = 4000;
 static constexpr auto TIME_SCROLL_RIGHT = 2000;
-static constexpr auto TIME_LED_ALL = 4000;
+static constexpr auto TIME_LED_ALL = 8000;
 
+static auto matrix = Matrix({1, 2, 4, 8, 16, 32, 64, 128});
 
 auto pixels_check = [](){
     for (int row_num = 0; row_num < 8; row_num++) {
       io::pins_default();
       for (int i = 0; i < 8; i++) {
         io::write_row(row_num, 1 << i);
-        osDelay(50);
+        osDelay(10);
       }
     }
 };
@@ -54,7 +56,6 @@ auto scroll_down_rows = [](auto line, auto delay){
 void callback_led_all(void *arg){
   pixels_check();
   osTimerStart(thread_led_all, TIME_LED_ALL);
-  // osTimerStop(thread_led_all);
   osThreadYield();
 }
 
@@ -89,9 +90,17 @@ void create_periodic_thread() {
   if (thread_scroll_right != NULL) {
   }
 
-  osTimerStart(thread_led_all, 500);  // start timer
+  osTimerStart(thread_led_all, 8000);  // start timer
   osTimerStart(thread_rows, 1000);  // start timer
-  osTimerStart(thread_scroll_right, 1500);  // start timer
+  osTimerStart(thread_scroll_right, 4000);  // start timer
+}
+
+void task_update_display(void *arg){
+  while (1) {
+    matrix.display(100);
+    osThreadYield();
+  }
+
 }
 
 auto task_attribute = [](const auto name, const auto priority,
@@ -114,11 +123,14 @@ int main() {
   MX_GPIO_Init();
   io::pins_default();
 
+  matrix.display(1000);
+
   // init Rtos
   osKernelInitialize();
 
   //create_thread(led_by_led, static_cast<osPriority_t>(30));
   //create_thread(led_scroll_down, static_cast<osPriority_t>(30));
+  create_thread(task_update_display, (osPriority_t)0);
   create_periodic_thread();
 
   osKernelStart();
@@ -126,6 +138,7 @@ int main() {
   
   osThreadTerminate(NULL);
 
+  //Should not come here
 
   while (1) {
     /* USER CODE END WHILE */
