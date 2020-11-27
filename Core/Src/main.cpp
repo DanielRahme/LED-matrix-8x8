@@ -19,6 +19,7 @@
 #include "io.hpp"
 #include "matrix.hpp"
 #include "etl/array.h"
+#include "display.hpp"
 //#include "freertos.hpp"
 
 void SystemClock_Config();
@@ -31,7 +32,6 @@ static constexpr auto TIME_ROWS = 4000;
 static constexpr auto TIME_SCROLL_RIGHT = 2000;
 static constexpr auto TIME_LED_ALL = 8000;
 
-static auto matrix = Matrix({1, 2, 4, 8, 16, 32, 64, 128});
 
 auto pixels_check = [](){
     for (int row_num = 0; row_num < 8; row_num++) {
@@ -96,8 +96,11 @@ void create_periodic_thread() {
 }
 
 void task_update_display(void *arg){
+  auto matrix = Matrix({1, 2, 4, 8, 16, 32, 64, 128});
+  auto d = Display(100);
+
   while (1) {
-    matrix.display(100);
+    d = matrix;
     osThreadYield();
   }
 
@@ -123,7 +126,8 @@ int main() {
   MX_GPIO_Init();
   io::pins_default();
 
-  matrix.display(1000);
+  Display disp;
+  auto matrix = Matrix({1, 2, 4, 8, 16, 32, 64, 128});
 
   // init Rtos
   osKernelInitialize();
