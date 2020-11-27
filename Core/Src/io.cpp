@@ -78,7 +78,7 @@ void write_row(int row, unsigned char value) {
 }
 
 // Turn off all LEDs
-void pins_default() {
+void clear() {
   // Active low led pin, disable with high
   for (auto r : io::pins_rows) {
     r.set();

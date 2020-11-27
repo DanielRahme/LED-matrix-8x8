@@ -12,143 +12,31 @@
 
 #include "main.h"
 #include "gpio.h"
-#include "cmsis_os.h"
-#include "cmsis_os2.h"
-//#include "FreeRTOS.h"
-#include "task.h"
 #include "io.hpp"
 #include "matrix.hpp"
 #include "etl/array.h"
 #include "display.hpp"
-//#include "freertos.hpp"
 
 void SystemClock_Config();
-
-osTimerId thread_led_all = nullptr;  // timer id
-osTimerId thread_rows = nullptr;  // timer id
-osTimerId thread_scroll_right = nullptr;  // timer id
-
-static constexpr auto TIME_ROWS = 4000;
-static constexpr auto TIME_SCROLL_RIGHT = 2000;
-static constexpr auto TIME_LED_ALL = 8000;
-
-
-auto pixels_check = [](){
-    for (int row_num = 0; row_num < 8; row_num++) {
-      io::pins_default();
-      for (int i = 0; i < 8; i++) {
-        io::write_row(row_num, 1 << i);
-        osDelay(10);
-      }
-    }
-};
-
-auto scroll_down_rows = [](auto line, auto delay){
-    for (int i = 0; i < 8; i++) {
-      io::pins_default();
-
-      io::write_row(i, line);
-      osDelay(delay);
-    }
-};
-
-
-void callback_led_all(void *arg){
-  pixels_check();
-  osTimerStart(thread_led_all, TIME_LED_ALL);
-  osThreadYield();
-}
-
-void callback_rows(void *arg){
-  scroll_down_rows(0xff, 50);
-  osTimerStart(thread_rows, TIME_ROWS);
-  osThreadYield();
-}
-
-void callback_scroll_right(void *arg){
-  for (int i = 0; i < 8; i++) {
-    scroll_down_rows(1 << i, 10);
-  }
-    osTimerStart(thread_rows, TIME_SCROLL_RIGHT);  
-    osThreadYield();
-}
-
-void create_periodic_thread() {
-  uint32_t exec1 = 1;  // argument for the timer call back function
-  uint32_t exec2 = 2;  // argument for the timer call back function
-
-
-  thread_led_all = osTimerNew(callback_led_all, osTimerPeriodic, &exec1, NULL);
-  if (thread_led_all != NULL) {  // One-shoot timer created
-  }
-
-  thread_rows = osTimerNew(callback_rows, osTimerPeriodic, &exec2, NULL);
-  if (thread_rows != NULL) {  // Periodic timer created
-  }
-
-  thread_scroll_right = osTimerNew(callback_scroll_right, osTimerPeriodic, nullptr, NULL);
-  if (thread_scroll_right != NULL) {
-  }
-
-  osTimerStart(thread_led_all, 8000);  // start timer
-  osTimerStart(thread_rows, 1000);  // start timer
-  osTimerStart(thread_scroll_right, 4000);  // start timer
-}
-
-void task_update_display(void *arg){
-  auto matrix = Matrix({1, 2, 4, 8, 16, 32, 64, 128});
-  auto d = Display(100);
-
-  while (1) {
-    d = matrix;
-    osThreadYield();
-  }
-
-}
-
-auto task_attribute = [](const auto name, const auto priority,
-                         const auto stack) {
-  osThreadAttr_t attributes = {};
-  attributes.name = name;
-  attributes.priority = priority;
-  attributes.stack_size = stack;
-  return attributes;
-};
-
-auto create_thread = [](auto& func, auto priority) {
-  auto led_attributes = task_attribute("", priority, 512);
-  osThreadNew(func, NULL, &led_attributes);
-};
 
 int main() {
   HAL_Init();
   SystemClock_Config();
   MX_GPIO_Init();
-  io::pins_default();
+  io::clear();
 
-  Display disp;
-  auto matrix = Matrix({1, 2, 4, 8, 16, 32, 64, 128});
+  constexpr auto matrix = Matrix({1, 2, 4, 8, 16, 32, 64, 128});
 
-  // init Rtos
-  osKernelInitialize();
-
-  //create_thread(led_by_led, static_cast<osPriority_t>(30));
-  //create_thread(led_scroll_down, static_cast<osPriority_t>(30));
-  create_thread(task_update_display, (osPriority_t)0);
-  create_periodic_thread();
-
-  osKernelStart();
-
-  
-  osThreadTerminate(NULL);
-
-  //Should not come here
+  Display disp(500);  // Delay time
+  disp = matrix;      // Write to display
 
   while (1) {
-    /* USER CODE END WHILE */
+    disp = matrix;
+
     HAL_GPIO_TogglePin(LD9_GPIO_Port, LD9_Pin);
     HAL_GPIO_TogglePin(LD4_GPIO_Port, LD4_Pin);
-    HAL_Delay(1000);
+    //HAL_Delay(1000);
+    Display::my_delay(1000);
   }
 }
 
@@ -182,29 +70,6 @@ void SystemClock_Config(void) {
   }
 }
 
-/* USER CODE BEGIN 4 */
-
-/* USER CODE END 4 */
-
-/**
-  * @brief  Period elapsed callback in non blocking mode
-  * @note   This function is called  when TIM6 interrupt took place, inside
-  * HAL_TIM_IRQHandler(). It makes a direct call to HAL_IncTick() to increment
-  * a global variable "uwTick" used as application time base.
-  * @param  htim : TIM handle
-  * @retval None
-  */
-void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef* htim) {
-  /* USER CODE BEGIN Callback 0 */
-
-  /* USER CODE END Callback 0 */
-  if (htim->Instance == TIM6) {
-    HAL_IncTick();
-  }
-  /* USER CODE BEGIN Callback 1 */
-
-  /* USER CODE END Callback 1 */
-}
 
 void Error_Handler(void) {
   /* USER CODE BEGIN Error_Handler_Debug */

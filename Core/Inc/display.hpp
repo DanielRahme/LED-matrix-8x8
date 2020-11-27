@@ -5,29 +5,16 @@
 #include "matrix.hpp"
 
 
-auto my_delay = [](auto delay) {
-  for (volatile auto i = 0; i < delay; i++)
-    for (volatile auto j = 0; j < delay; j++)
-      ;
-};
 
 struct Display {
-  Display(uint32_t d = 0) : delay(d){};
+  Display(uint32_t d = 0) : delay(d){}; // Constructor
 
-  void operator=(Matrix m) {
-    update(m);
-  }
+  void operator=(Matrix m);       // Write
+  //explicit operator bool();     // Read
 
-  void update(Matrix m) {
-    auto n = 0;
-    for (auto row : m.matrix) {
-      io::pins_default();
-      io::write_row(n++, row);
-      my_delay(this->delay);
-    }
-  }
+  static void my_delay(uint32_t delay); // TODO: Replace this
+  void update(Matrix m);
 
-  //explicit operator bool();  // Read
   uint32_t delay = 0;
 };
 #endif

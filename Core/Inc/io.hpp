@@ -14,7 +14,7 @@ namespace io {
   static constexpr int max_row = 8;
 
   void write_row(int row, unsigned char value);
-  void pins_default();
+  void clear();
 
     struct Pin {
 
