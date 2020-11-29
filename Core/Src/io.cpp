@@ -3,11 +3,6 @@
 #include "main.h"
 #include "etl/array.h"
 
-#define GPIOA_BASE            (AHB2PERIPH_BASE + 0x00000000UL)
-#define GPIOB_BASE            (AHB2PERIPH_BASE + 0x00000400UL)
-#define GPIOC_BASE            (AHB2PERIPH_BASE + 0x00000800UL)
-
-
 namespace io 
 {
 // struct Pin methods and operators
@@ -29,8 +24,8 @@ void Pin::reset() {
   *this = false;
 }
 
-void Pin::toggle() {
-  HAL_GPIO_TogglePin((GPIO_TypeDef*)Pin::port, Pin::num);
+void Pin::toggle() const {
+  HAL_GPIO_TogglePin((GPIO_TypeDef*)port, num);
 }
 
 Pin::operator bool() {

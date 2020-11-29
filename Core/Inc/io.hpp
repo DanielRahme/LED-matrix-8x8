@@ -4,9 +4,6 @@
 #include "io.hpp"
 #include "main.h"
 
-#define GPIOC_BASE 1u
-#define GPIOB_BASE 2u
-
 namespace io {
 
   // io constants
@@ -28,7 +25,7 @@ namespace io {
       void set();
       void reset();
       void write(int value);
-      void toggle();
+      void toggle() const;
 
       uint32_t port = 0;
       uint16_t num = 0;
