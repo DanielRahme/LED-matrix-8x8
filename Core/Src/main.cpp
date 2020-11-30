@@ -18,6 +18,16 @@
 #include "etl/array.h"
 #include "display.hpp"
 
+void error() {
+  constexpr auto blue1 = io::Pin(GPIOE_BASE, LD9_Pin);
+  constexpr auto blue2 = io::Pin(GPIOE_BASE, LD4_Pin);
+  while (true) {
+    blue1.toggle();
+    blue2.toggle();
+    Display::my_delay(1000);
+  }
+}
+
 int main() {
   HAL_Init();
   SystemClock_Config();
@@ -25,17 +35,14 @@ int main() {
   io::clear();
 
   auto matrix = Matrix({1, 2, 4, 8, 16, 32, 64, 128});
-  constexpr auto blue1 = io::Pin(GPIOE_BASE, LD9_Pin);
-  constexpr auto blue2 = io::Pin(GPIOE_BASE, LD4_Pin);
+  constexpr auto refresh_rate = 50;
 
-  Display disp(500);  // Delay time
+  Display disp(refresh_rate);  // Delay time
   disp = matrix;      // Write to display
 
-  while (1) {
+  while (true) {
     disp = matrix;
-
-    blue1.toggle();
-    blue2.toggle();
-    Display::my_delay(1000);
   }
+
+  error(); // Should never reach here
 }
