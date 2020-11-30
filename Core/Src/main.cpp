@@ -35,20 +35,18 @@ int main() {
   MX_GPIO_Init();
   io::clear();
 
-  auto matrix = Matrix({1, 2, 4, 8, 16, 32, 64, 128});
   constexpr auto refresh_rate = 50;
-
   Display disp(refresh_rate);  // Delay time
-  //disp = matrix;      // Write to display
 
-  disp = pattern::square;
+  disp = pattern::square_max_h;
 
   while (true) {
 
     for (auto i = 0; i < io::max_column+1; i++) {
-      const auto square = pattern::rect(i,i);
+      const auto sqr = pattern::square(i);
+
       for (unsigned long j = 0; j < 20; j++) {
-        disp = square;
+        disp = sqr;
       }
     }
 

@@ -17,4 +17,8 @@ Matrix rect(uint8_t width, uint8_t height) {
     return m;
 }
 
+Matrix square(uint8_t width) {
+  return rect(width, width);
+}
+
 }  // End namepsace pattern
