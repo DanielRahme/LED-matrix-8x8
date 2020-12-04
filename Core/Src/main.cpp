@@ -35,17 +35,19 @@ int main() {
   MX_GPIO_Init();
   io::clear();
 
-  constexpr auto refresh_rate = 50;
+  constexpr auto refresh_rate = 12;
   Display disp(refresh_rate);  // Delay time
 
   disp = pattern::square_max_h;
+
+  const auto duration = 4;
 
   while (true) {
 
     for (auto i = 0; i < io::max_column+1; i++) {
       const auto sqr = pattern::square(i);
 
-      for (unsigned long j = 0; j < 20; j++) {
+      for (unsigned long j = 0; j < duration; j++) {
         disp = sqr;
       }
     }
