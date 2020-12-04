@@ -17,6 +17,7 @@
 #include "matrix.hpp"
 #include "etl/array.h"
 #include "display.hpp"
+#include "pattern.hpp"
 
 void error() {
   constexpr auto blue1 = io::Pin(GPIOE_BASE, LD9_Pin);
@@ -34,14 +35,23 @@ int main() {
   MX_GPIO_Init();
   io::clear();
 
-  auto matrix = Matrix({1, 2, 4, 8, 16, 32, 64, 128});
-  constexpr auto refresh_rate = 50;
-
+  constexpr auto refresh_rate = 12;
   Display disp(refresh_rate);  // Delay time
-  disp = matrix;      // Write to display
+
+  disp = pattern::square_max_h;
+
+  const auto duration = 4;
 
   while (true) {
-    disp = matrix;
+
+    for (auto i = 0; i < io::max_column+1; i++) {
+      const auto sqr = pattern::square(i);
+
+      for (unsigned long j = 0; j < duration; j++) {
+        disp = sqr;
+      }
+    }
+
   }
 
   error(); // Should never reach here
