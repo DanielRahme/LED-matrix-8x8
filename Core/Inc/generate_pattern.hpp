@@ -1,10 +1,10 @@
 
-#ifndef _PATTERN_HPP
-#define _PATTERN_HPP
+#ifndef _GENERATE_PATTERN_HPP
+#define _GENERATE_PATTERN_HPP
 
 #include "matrix.hpp"
 
-namespace pattern {
+namespace generate_pattern {
 
 constexpr auto square_max_h = Matrix({0xff, 0b1000'0001, 0b1000'0001, 0b1000'0001,
                                 0b1000'0001, 0b1000'0001, 0b1000'0001, 0xff});
