@@ -14,14 +14,15 @@
 #include "system_clock.h"
 #include "gpio.h"
 #include "io.hpp"
+#include "pin.hpp"
 #include "matrix.hpp"
 #include "etl/array.h"
 #include "display.hpp"
 #include "pattern.hpp"
 
 void error() {
-  constexpr auto blue1 = io::Pin(GPIOE_BASE, LD9_Pin);
-  constexpr auto blue2 = io::Pin(GPIOE_BASE, LD4_Pin);
+  constexpr auto blue1 = Pin(GPIOE_BASE, LD9_Pin);
+  constexpr auto blue2 = Pin(GPIOE_BASE, LD4_Pin);
   while (true) {
     blue1.toggle();
     blue2.toggle();

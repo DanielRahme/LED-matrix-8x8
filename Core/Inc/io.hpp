@@ -2,27 +2,13 @@
 #define _IO_HPP
 
 #include "io.hpp"
+#include "pin.hpp"
 #include "main.h"
 #include "etl/array.h"
 
 namespace io {
 
 // Datatypes
-struct Pin {
-  constexpr Pin(uint32_t p = 0, uint16_t n = 0) : port(p), num(n){};
-
-  bool operator=(bool v);
-  bool operator=(int v);
-  explicit operator bool();
-
-  void set();
-  void reset();
-  void write(int value);
-  void toggle() const;
-
-  uint32_t port = 0;
-  uint16_t num = 0;
-};
 
 
 // Matrix dimensions constants
