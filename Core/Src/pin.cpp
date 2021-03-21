@@ -4,7 +4,9 @@
 
 // struct Pin methods and operators
 bool Pin::operator=(bool v) {
+  if (this->inverted) v = !v;
   auto bit_value = (v ? GPIO_PIN_SET : GPIO_PIN_RESET);
+
   HAL_GPIO_WritePin((GPIO_TypeDef*)this->port, this->num, bit_value);
   return v;
 }
