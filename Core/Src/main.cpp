@@ -19,6 +19,7 @@
 #include "etl/array.h"
 #include "display.hpp"
 #include "generate_pattern.hpp"
+#include "pattern.hpp"
 
 void error() {
   constexpr auto blue1 = Pin(GPIOE_BASE, LD9_Pin);
@@ -38,6 +39,11 @@ int main() {
 
   constexpr auto refresh_rate = 12;
   Display disp(refresh_rate);  // Delay time
+
+  const auto sqr_1 = Pattern(generate_pattern::square_pat(1));
+  const auto sqr_3 = Pattern(generate_pattern::square_pat(3));
+  const auto sqr_5 = Pattern(generate_pattern::square_pat(5));
+  const auto sqr_7 = Pattern(generate_pattern::square_pat(7));
 
   disp = generate_pattern::square_max_h;
 
