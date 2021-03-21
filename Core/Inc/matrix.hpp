@@ -2,9 +2,9 @@
 #define _MATRIX_HPP
 
 #include "etl/array.h"
-#include "io.hpp"
+#include "pixel.hpp"
 
-using matrix_t = etl::array<uint8_t, io::max_row>;
+using matrix_t = etl::array<uint8_t, pixel::max_row>;
 
 struct Matrix {
   // Constructor

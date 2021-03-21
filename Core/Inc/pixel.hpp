@@ -1,12 +1,11 @@
-#ifndef _IO_HPP
-#define _IO_HPP
+#ifndef _PIXEL_HPP
+#define _PIXEL_HPP
 
-#include "io.hpp"
 #include "pin.hpp"
 #include "main.h"
 #include "etl/array.h"
 
-namespace io {
+namespace pixel {
 
 // Datatypes
 

@@ -1,7 +1,7 @@
 #ifndef _DISP_HPP
 #define _DISP_HPP
 
-#include "io.hpp"
+#include "pixel.hpp"
 #include "matrix.hpp"
 
 
