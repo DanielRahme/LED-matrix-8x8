@@ -15,10 +15,8 @@
 #include "gpio.h"
 #include "pixel.hpp"
 #include "pin.hpp"
-#include "matrix.hpp"
-#include "etl/array.h"
 #include "display.hpp"
-#include "generate_pattern.hpp"
+#include "create_pattern.hpp"
 #include "pattern.hpp"
 #include "animation.hpp"
 
@@ -49,7 +47,7 @@ int main() {
     std::array<Pattern, 8> patterns = {};
     auto x = 1;
     for (auto& p : patterns)
-      p = Pattern(generate_pattern::square_pat(x++));
+      p = Pattern(create_pattern::square(x++));
     return patterns;
   }();
 
