@@ -10,10 +10,8 @@ using pattern_t = std::array<led_row_t, 8>;   // 8x8 pattern
 struct Pattern {
   // Members
   pattern_t   pattern;
-  int         row_duration;
-
   // Constructors
-  constexpr Pattern(pattern_t p = {0}, int duration = 1) : pattern(p), row_duration(duration) {};
+  constexpr Pattern(pattern_t p = {0}) : pattern(p){};
 
   // Functions
   // Rotate

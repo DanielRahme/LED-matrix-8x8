@@ -20,6 +20,9 @@
 #include "display.hpp"
 #include "generate_pattern.hpp"
 #include "pattern.hpp"
+#include "animation.hpp"
+
+
 
 void error() {
   constexpr auto blue1 = Pin(GPIOE_BASE, LD9_Pin);
@@ -40,26 +43,19 @@ int main() {
   constexpr auto refresh_rate = 12;
   Display disp(refresh_rate);  // Delay time
 
-  const auto sqr_1 = Pattern(generate_pattern::square_pat(1));
-  const auto sqr_3 = Pattern(generate_pattern::square_pat(3));
-  const auto sqr_5 = Pattern(generate_pattern::square_pat(5));
-  const auto sqr_7 = Pattern(generate_pattern::square_pat(7));
 
-  disp = generate_pattern::square_max_h;
+  // Generate a growing square
+  auto square_patterns = [](){
+    std::array<Pattern, 8> patterns = {};
+    auto x = 1;
+    for (auto& p : patterns)
+      p = Pattern(generate_pattern::square_pat(x++));
+    return patterns;
+  }();
 
-  const auto duration = 4;
+  const auto clip_1 = Animation(square_patterns, 10);
 
   while (true) {
-
-    for (auto i = 0; i < pixel::max_column+1; i++) {
-      const auto sqr = generate_pattern::square(i);
-
-      for (unsigned long j = 0; j < duration; j++) {
-        disp = sqr;
-      }
-    }
-
+    disp = clip_1;
   }
-
-  error(); // Should never reach here
 }
