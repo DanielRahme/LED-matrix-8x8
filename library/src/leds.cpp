@@ -41,24 +41,24 @@ static constexpr int y6_num = 3;
 static constexpr int y7_num = 2;
 
 constexpr etl::array<Pin, 8> x_columns = {
-    Pin(x0_port, x0_num, 0),
-    Pin(x1_port, x1_num, 0),
-    Pin(x2_port, x2_num, 0),
-    Pin(x3_port, x3_num, 0),
-    Pin(x4_port, x4_num, 0),
-    Pin(x5_port, x5_num, 0),
-    Pin(x6_port, x6_num, 0),
-    Pin(x7_port, x7_num, 0)};
+    Pin(x0_port, x0_num, Pin::inv_t::no),
+    Pin(x1_port, x1_num, Pin::inv_t::no),
+    Pin(x2_port, x2_num, Pin::inv_t::no),
+    Pin(x3_port, x3_num, Pin::inv_t::no),
+    Pin(x4_port, x4_num, Pin::inv_t::no),
+    Pin(x5_port, x5_num, Pin::inv_t::no),
+    Pin(x6_port, x6_num, Pin::inv_t::no),
+    Pin(x7_port, x7_num, Pin::inv_t::no)};
 
 constexpr etl::array<Pin, 8> y_rows = {
-    Pin(y0_port, y0_num, 1),
-    Pin(y1_port, y1_num, 1),
-    Pin(y2_port, y2_num, 1),
-    Pin(y3_port, y3_num, 1),
-    Pin(y4_port, y4_num, 1),
-    Pin(y5_port, y5_num, 1),
-    Pin(y6_port, y6_num, 1),
-    Pin(y7_port, y7_num, 1)};
+    Pin(y0_port, y0_num, Pin::inv_t::yes),
+    Pin(y1_port, y1_num, Pin::inv_t::yes),
+    Pin(y2_port, y2_num, Pin::inv_t::yes),
+    Pin(y3_port, y3_num, Pin::inv_t::yes),
+    Pin(y4_port, y4_num, Pin::inv_t::yes),
+    Pin(y5_port, y5_num, Pin::inv_t::yes),
+    Pin(y6_port, y6_num, Pin::inv_t::yes),
+    Pin(y7_port, y7_num, Pin::inv_t::yes)};
 
 
 // Functions
