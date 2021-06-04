@@ -56,17 +56,10 @@
 *.mod*
 *.cmd
 
-main
+# nrf52 folders
+hex
+pca10056
+timer.eww
 
-#STM folders and files
-Debug
-Drivers
-*.ld
-*.launch
-.cproject
-.mxproject
-.settings
-.project
-Core/Startup
 
 *.zip
