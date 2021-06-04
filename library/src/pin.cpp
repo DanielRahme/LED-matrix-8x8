@@ -3,7 +3,7 @@
 
 
 // Write pin (boolean)
-bool Pin::operator=(bool v) 
+bool Pin::operator=(bool v) const
 {
   if (Pin::inverted) v = !v;
   auto port = (Pin::port == NRF_P0_BASE ? NRF_P0 : NRF_P1);
@@ -17,21 +17,21 @@ bool Pin::operator=(bool v)
 }
 
 // Write pin, non-boolean
-bool Pin::operator=(int v) 
+bool Pin::operator=(int v) const
 {
   return *this = v > 0;
 }
 
 // Set pin
-void Pin::set()
+void Pin::set() const
 {
-  *this = true;
+  (*this) = true;
 }
 
 // Reset pin
-void Pin::reset() 
+void Pin::reset() const
 {
-  *this = false;
+  (*this) = false;
 }
 
 void Pin::toggle() const {

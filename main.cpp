@@ -45,7 +45,7 @@ static constexpr int y5_num = 4;
 static constexpr int y6_num = 3;
 static constexpr int y7_num = 2;
 
-etl::array<Pin, 8> x_columns = {
+static constexpr etl::array<Pin, 8> x_columns = {
     Pin(x0_port, x0_num, 0),
     Pin(x1_port, x1_num, 0),
     Pin(x2_port, x2_num, 0),
@@ -55,7 +55,7 @@ etl::array<Pin, 8> x_columns = {
     Pin(x6_port, x6_num, 0),
     Pin(x7_port, x7_num, 0)};
 
-etl::array<Pin, 8> y_rows = {
+static constexpr etl::array<Pin, 8> y_rows = {
     Pin(y0_port, y0_num, 1),
     Pin(y1_port, y1_num, 1),
     Pin(y2_port, y2_num, 1),

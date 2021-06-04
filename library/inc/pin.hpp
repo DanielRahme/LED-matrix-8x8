@@ -8,13 +8,13 @@ struct Pin {
 
   constexpr Pin(int p = 0, int n = 0, int inv = 0) : port(p), num(n), inverted(inv) {};
 
-  bool operator=(bool v);
-  bool operator=(int v);
+  bool operator=(bool v) const;
+  bool operator=(int v) const;
   explicit operator bool();
 
   void init() const;
-  void set();
-  void reset();
+  void set() const;
+  void reset() const;
   void write(int value);
   void toggle() const;
 };
