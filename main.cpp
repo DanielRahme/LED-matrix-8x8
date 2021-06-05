@@ -9,11 +9,7 @@
 #include "pin.hpp"
 #include "leds.hpp"
 #include "display.hpp"
-
-
-
-
-const nrf_drv_timer_t TIMER_LED = NRF_DRV_TIMER_INSTANCE(0);
+#include "static_patterns.hpp"
 
 static auto update_led_flag = false;
 
@@ -36,6 +32,7 @@ void timer_led_event_handler(nrf_timer_event_t event_type, void *p_context)
 
 void timer_init(int time_ms)
 {
+  const nrf_drv_timer_t TIMER_LED = NRF_DRV_TIMER_INSTANCE(0);
   uint32_t err_code = NRF_SUCCESS;
 
   //Configure TIMER_LED for generating simple light effect - leds on board will invert his state one after the other.
@@ -52,23 +49,35 @@ void timer_init(int time_ms)
 int main(void)
 {
   constexpr int blink_time = 1;
-  static constexpr pattern_t pattern_sun = {0x91,0x42,0x18,0x3D,0xBC,0x18,0x42,0x89};
+  auto counter_change_pattern = 0;
 
   bsp_board_init(BSP_INIT_LEDS);    //Configure all leds on board.
   leds::init();
   timer_init(blink_time);
 
+  auto display = Display(patterns::sun);
 
-  auto display = Display(pattern_sun);
+  etl::array<pattern_t, 6> patterns = {patterns::sun, patterns::arrow, patterns::tree, patterns::arrow_pointy, patterns::snowflake, patterns::skull};
+  constexpr auto pattern_limit = 400;
+  auto idx_pattern = 0;
 
   while (1)
   {
     __WFI();
 
+    // Update display
     if (update_led_flag) {
       display.update();
       update_led_flag = false;  // Clear flag
+      ++counter_change_pattern;
     }
+
+    if (counter_change_pattern == pattern_limit) {
+      display = patterns[idx_pattern];
+      idx_pattern = (idx_pattern + 1) % patterns.size();
+      counter_change_pattern = 0;
+    }
+    
   }
 
 }
