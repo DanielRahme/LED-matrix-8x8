@@ -89,4 +89,38 @@ void test()
       col.reset();    // Reset all columns
   }
 }
+
+void write_row(const int row, std::uint8_t value)
+{
+  int idx = 7;
+
+  while (value) {
+    if (value & 1) 
+      x_columns[idx].set();
+
+    --idx;
+    value >>= 1;
+  }
+  y_rows[row].set();
+}
+
+void reset_rows()
+{
+  for (auto y : y_rows)
+    y.reset();
+
+}
+
+void reset_columns()
+{
+  for (auto x : x_columns)
+    x.reset();
+}
+
+void reset()
+{
+  reset_rows();
+  reset_columns();
+}
+
 } // End namespace leds

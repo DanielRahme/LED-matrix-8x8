@@ -5,6 +5,7 @@
 
 #include "etl/array.h"
 #include "pin.hpp"
+#include <cstdint>
 
 namespace leds {
 
@@ -13,6 +14,10 @@ extern const etl::array<Pin, 8> y_rows;
 
 void init();
 void test();
+void write_row(const int row, std::uint8_t value);
+void reset_rows();
+void reset_columns();
+void reset();
 
 }
 
