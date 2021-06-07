@@ -37,7 +37,8 @@ void Pin::reset() const
 
 void Pin::toggle() const
 {
-  //HAL_GPIO_TogglePin((GPIO_TypeDef*)port, num);
+  auto value = *this;
+  *this = !value;
 }
 
 void Pin::init() const
@@ -53,6 +54,7 @@ void Pin::init() const
 // Read pin
 Pin::operator bool()
 {
-  //const auto state = HAL_GPIO_ReadPin((GPIO_TypeDef *)port, num);
-  //return state == GPIO_PIN_SET;
+  auto port = (Pin::port == NRF_P0_BASE ? NRF_P0 : NRF_P1);
+  auto value = port->OUT;
+  return (value >> this->num) & 1;
 }
