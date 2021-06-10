@@ -90,6 +90,49 @@ void test()
   }
 }
 
+void toggle_test_rows()
+{
+  constexpr auto delay_time = 1000000ull;
+  leds::reset();
+
+  for (auto y : leds::y_rows) {
+    y.toggle();  // TODO: BUG here
+
+    for (auto x : leds::x_columns) {
+      x.toggle();
+      for (volatile auto i = 0ull; i < delay_time; ++i) 
+        ;
+      x.toggle();
+      for (volatile auto i = 0ull; i < delay_time; ++i) 
+        ;
+    }
+
+    y.toggle();  // TODO: BUG here
+  }
+}
+
+void toggle_test_columns()
+{
+  constexpr auto delay_time = 1000000ull;
+  leds::reset();
+
+  for (auto x : leds::x_columns)
+  {
+    x.toggle();
+
+    for (auto y : leds::y_rows) {
+      y.toggle(); // TODO: BUG here
+      for (volatile auto i = 0ull; i < delay_time; ++i)
+        ;
+      y.toggle();
+      for (volatile auto i = 0ull; i < delay_time; ++i)
+        ;
+    }
+
+    x.toggle(); // TODO: BUG here
+  }
+}
+
 void write_row(const int row, std::uint8_t value)
 {
   int idx = 7;
@@ -101,6 +144,22 @@ void write_row(const int row, std::uint8_t value)
     --idx;
     value >>= 1;
   }
+  y_rows[row].set();
+}
+
+// Optimized to only toggle the leds that change from previous row
+void write_row(const int row, const std::uint8_t prev_value, std::uint8_t value) {
+  int idx = 7;
+  value ^= prev_value;
+
+  while (value) {
+    if (value & 1) 
+      x_columns[idx].toggle();
+
+    --idx;
+    value >>= 1;
+  }
+
   y_rows[row].set();
 }
 

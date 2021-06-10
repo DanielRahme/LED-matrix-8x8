@@ -1,6 +1,8 @@
 #ifndef _PIN_HPP
 #define _PIN_HPP
 
+#include <cstdint>>
+
 struct Pin
 {
   enum class inv_t {
@@ -18,7 +20,7 @@ struct Pin
   // Overload functions
   bool operator=(bool v) const;
   bool operator=(int v) const;
-  explicit operator bool();
+  explicit operator int();
 
   // Functions
   void init() const;

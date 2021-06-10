@@ -1,12 +1,11 @@
 #include "pin.hpp"
 #include <nrf.h>
+#include <cstdint>
+#include "nrf_gpio.h"
 
 // Write pin (boolean)
 bool Pin::operator=(bool v) const
 {
-  if (Pin::inv == Pin::inv_t::yes)
-    v = !v;
-
   auto port = (Pin::port == NRF_P0_BASE ? NRF_P0 : NRF_P1);
 
   if (v)
@@ -26,19 +25,29 @@ bool Pin::operator=(int v) const
 // Set pin
 void Pin::set() const
 {
-  *this = true;
+  *this = (this->inv == Pin::inv_t::no);
 }
 
 // Reset pin
 void Pin::reset() const
 {
-  *this = false;
+  *this = (this->inv == Pin::inv_t::yes);
+}
+
+// Read pin
+Pin::operator int()
+{
+  auto port = (Pin::port == NRF_P0_BASE ? NRF_P0 : NRF_P1);
+  volatile std::uint32_t value = port->OUT;
+  return value & (1 << this->num);
 }
 
 void Pin::toggle() const
 {
-  auto value = *this;
-  *this = !value;
+  auto port = (Pin::port == NRF_P0_BASE ? NRF_P0 : NRF_P1);
+  volatile std::uint32_t value = port->OUT;
+  value = value & (1 << this->num);
+  *this = !(value);
 }
 
 void Pin::init() const
@@ -51,10 +60,4 @@ void Pin::init() const
                             (GPIO_PIN_CNF_SENSE_Disabled << GPIO_PIN_CNF_SENSE_Pos);
 }
 
-// Read pin
-Pin::operator bool()
-{
-  auto port = (Pin::port == NRF_P0_BASE ? NRF_P0 : NRF_P1);
-  auto value = port->OUT;
-  return (value >> this->num) & 1;
-}
+
